@@ -226,7 +226,7 @@ function viennaNow() {
   const g = t => parts.find(p => p.type === t).value;
   return { date: `${g("year")}-${g("month")}-${g("day")}`, time: `${g("hour")}:${g("minute")}` };
 }
-const START = Date.UTC(2026, 9, 9, 15, 0); // 17:00 en Viena
+const START = Date.UTC(2026, 9, 9, 15, 30); // 17:30 en Viena
 const END = Date.UTC(2026, 9, 12, 10, 0);
 const flat = [];
 DAYS.forEach((d, di) => d.stops.forEach((s, si) => { if (s.t) flat.push({ key: d.key + " " + s.t, di, si }); }));
@@ -247,7 +247,7 @@ function renderHero() {
   if (now < START) {
     const ms = START - now, d = Math.floor(ms / 864e5), h = Math.floor(ms / 36e5) % 24, m = Math.floor(ms / 6e4) % 60;
     box.innerHTML = `<p class="big">Faltan ${plural(d, "día", "días")}, ${plural(h, "hora", "horas")} y ${plural(m, "minuto", "minutos")}</p>
-      <p class="small">Aterrizamos el viernes 9 de octubre y a las 17:00 empieza todo.</p>`;
+      <p class="small">Aterrizamos el viernes 9 de octubre y a las 17:30 empieza todo.</p>`;
   } else if (now < END) {
     const st = status();
     const s = st.cur ? DAYS[st.cur.di].stops[st.cur.si] : null;
@@ -316,6 +316,7 @@ function fit(pts) {
 function renderMap() {
   const d = DAYS[day];
   const stops = d.stops.filter(s => s.p);
+  if (!stops.length) { $("#map").innerHTML = `<p class="map-empty">Este día no tiene paradas que pintar en el mapa.</p>`; $("#map-day").textContent = d.label; return; }
   fit(stops.map(s => [PLACES[s.p].lat, PLACES[s.p].lon]));
   const ring = [[48.2155, 16.3655], [48.2150, 16.3715], [48.2115, 16.3780], [48.2070, 16.3800], [48.2035, 16.3780], [48.2010, 16.3735], [48.2025, 16.3690], [48.2045, 16.3620], [48.2105, 16.3585], [48.2155, 16.3655]];
   const canal = [[48.2300, 16.3600], [48.2230, 16.3665], [48.2160, 16.3720], [48.2120, 16.3790], [48.2060, 16.3880], [48.1990, 16.3990], [48.1900, 16.4150], [48.1820, 16.4300]];
@@ -1333,7 +1334,11 @@ function distM(a, b, c, d) {
   return Math.sqrt(x * x + y * y) * R;
 }
 const fmtDist = m => m < 950 ? `${Math.max(10, Math.round(m / 10) * 10)} m` : `${(m / 1000).toLocaleString("es-ES", { maximumFractionDigits: 1 })} km`;
-function tripOn() { const d = viennaNow().date; return d >= DAYS[0].key && d <= DAYS[DAYS.length - 1].key; }
+/* Del día en que llega Kevin al último día de Pilu en Viena */
+function tripOn() { const d = viennaNow().date; return d >= "2026-10-09" && d <= "2026-10-21"; }
+const isExtra = k => DAYS.some(d => d.extra && d.stops.some(s => s.p === k)) && !DAYS.some(d => !d.extra && d.stops.some(s => s.p === k));
+/* Un sitio del itinerario no se abre por GPS antes de su día: así el viernes no destapa lo del domingo */
+function dueDay(k) { if (isExtra(k)) return tripOn(); const d = DAYS.find(x => !x.extra && x.stops.some(s => s.p === k)); return !!d && viennaNow().date >= d.key; }
 function startGeo() {
   if (!navigator.geolocation) { geoErr = 9; return; }
   if (geoWatch != null) return;
@@ -1351,7 +1356,7 @@ function distTo(k) { return geo ? distM(geo.lat, geo.lon, PLACES[k].lat, PLACES[
 /* Se da por alcanzado un sitio si estamos dentro de su radio y además es el más cercano de todos:
    así la catedral no abre el mensaje del bar de enfrente, ni la Ópera el del puesto de salchichas. */
 function near(k) {
-  const d = distTo(k); if (d == null || geo.acc > 150) return false;
+  const d = distTo(k); if (d == null || geo.acc > 150 || !dueDay(k)) return false;
   if (d - Math.min(geo.acc, 60) > (RADIUS[k] || 200)) return false;
   for (const j in MESSAGES) if (j !== k && distTo(j) < d) return false;
   return true;
@@ -1373,6 +1378,7 @@ function unlockMsg(k, auto) {
 }
 /* Por si el GPS falla: se puede abrir a mano, pero solo el día y a la hora en que tocaba ese sitio */
 function canForce(k) {
+  if (isExtra(k)) return tripOn();
   const n = viennaNow();
   return DAYS.some(d => d.key === n.date && d.stops.some(s => {
     if (s.p !== k || !s.t) return false;
@@ -1627,7 +1633,7 @@ function renderRecap() {
   const t = totals(), played = Object.keys(results).length, over = Date.now() >= END;
   const lead = t.k === t.p ? null : t.k > t.p ? "k" : "p";
   const nSt = PP.filter(k => stamps[k]).length, nMsg = Object.keys(MESSAGES).filter(k => opened[k]).length, nPh = PP.filter(k => PH[k]).length;
-  const days = DAYS.map(d => {
+  const days = DAYS.filter(d => !d.extra).map(d => {
     const sc = dayScore(d.key), v = betVerdict(d.key), b = bets[d.key];
     const who = !sc.n ? "Sin juegos" : sc.k === sc.p ? `Empate a ${sc.k}` : `${nm(sc.k > sc.p ? "k" : "p")} · ${Math.max(sc.k, sc.p)} a ${Math.min(sc.k, sc.p)}`;
     return `<li><span class="rd-d"><b>${d.num}</b>${d.short}</span><span class="rd-t"><b>${who}</b>${b ? `<span>«${esc(b.text)}»${v ? (v.w === "t" ? " · a medias" : ` · paga ${nm(OTHER[v.w])}${b.paid ? ", saldada" : ""}`) : " · en juego"}</span>` : ""}</span></li>`;
@@ -1748,14 +1754,16 @@ if ("serviceWorker" in navigator && !window.__WIEN_NET__) {
 }
 
 function attachPhotos() {
-  if (typeof PHOTO_SET === "undefined") return false;
-  for (const k in PHOTO_SET) if (PLACES[k]) { PLACES[k].photos = { now: PHOTO_SET[k].now, old: PHOTO_SET[k].old }; PLACES[k].zoom = PHOTO_SET[k].zoom; }
-  return true;
+  const sets = [typeof PHOTO_SET !== "undefined" ? PHOTO_SET : null, typeof PHOTO_SET2 !== "undefined" ? PHOTO_SET2 : null];
+  let n = 0;
+  sets.forEach(S => { if (!S) return; n++; for (const k in S) if (PLACES[k] && !PLACES[k].photos) { PLACES[k].photos = { now: S[k].now, old: S[k].old }; PLACES[k].zoom = S[k].zoom; } });
+  return n;
 }
 
 /* ---------- Arranque ---------- */
 derive();
-if (!attachPhotos()) window.__photosReady = () => {
+attachPhotos();
+window.__photosReady = () => {
   if (!attachPhotos()) return;
   renderPlan();
   if (current && !A) { $("#art-slot").innerHTML = artBlock(current.k); }

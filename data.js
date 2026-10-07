@@ -623,3 +623,319 @@ const BET_IDEAS = [
   ["Quien pierda da un masaje de pies"],
   ["Quien gane elige la peli del vuelo de vuelta", "2026-10-11"]
 ];
+
+/* ================= Plan definitivo (cambios del 7 de octubre) =================
+   Sitios nuevos del itinerario, ajustes en los que se mantienen y "Planes extras"
+   con los sitios que salieron del plan. */
+Object.assign(PLACES, {
+  kaiserwiesn: {
+    name: "Kaiser Wiesn", kind: "El Oktoberfest de Viena, en el Prater", art: "beer", era: "1897",
+    lat: 48.2176, lon: 16.3962, q: "Kaiserwiese, Prater, Wien",
+    audio: "Esto es la Kaiser Wiesn, el Oktoberfest de Viena. Se monta cada otoño en la Kaiserwiese, la pradera del emperador, a los pies de la Noria Gigante del Prater. Hay tres grandes carpas y varias cabañas alpinas, las Almen, con música en directo desde el mediodía hasta casi medianoche, y un pueblo de puestos con comida de todas las regiones de Austria. Entrar al recinto es gratis. Lo que se paga son las fiestas de noche dentro de las carpas. El Prater fue coto de caza imperial hasta que el emperador José segundo lo abrió al pueblo en 1766. Y la noria, levantada en 1897, lleva más de un siglo girando sobre todo esto.",
+    facts: [
+      "En 2026 la Kaiser Wiesn va del 24 de septiembre al 11 de octubre: la pilláis en su último fin de semana.",
+      "El recinto abre a las 12:00 y la música suena cada día de 12:15 a 23:30.",
+      "La Noria Gigante mide casi 65 metros y sale en El tercer hombre, la película de 1949 con Orson Welles."
+    ],
+    secret: "Para parecer de aquí, no digáis Oktoberfest: en Viena se va a la Wiesn. Y al brindar, mirad a los ojos. Dicen que quien aparta la mirada se gana siete años de mala suerte en el amor."
+  },
+  belvedere21: {
+    name: "Belvedere 21", kind: "Museo de arte contemporáneo, de paso", art: "favoriten", era: "1958",
+    lat: 48.1857, lon: 16.3836, q: "Belvedere 21, Arsenalstraße 1, Wien",
+    audio: "Este pabellón de acero y cristal no nació en Viena. El arquitecto Karl Schwanzer lo diseñó como pabellón de Austria para la Exposición Universal de Bruselas de 1958, donde ganó el gran premio de arquitectura. Después lo desmontaron, lo trajeron aquí y en 1962 reabrió como museo de arte del siglo veinte. Los vieneses lo llamaron enseguida la casa del veinte. Tras años cerrado, se renovó y reabrió en 2011, y hoy es la sede de arte contemporáneo del Belvedere. Solo pasáis por delante, pero merece la mirada: es un edificio que parece flotar.",
+    facts: [
+      "El 21 es por el siglo veintiuno. Hasta 2018 se llamaba 21er Haus.",
+      "Karl Schwanzer es también el autor de la torre de BMW en Múnich.",
+      "Alrededor del edificio hay un jardín de esculturas."
+    ],
+    secret: "Está a diez minutos andando del Belvedere Superior, que veréis mañana. Del pan de oro de Klimt al acero de Schwanzer hay solo un paseo y dos siglos y medio."
+  },
+  kunsthaus: {
+    name: "Kunst Haus Wien", kind: "El Gaudí de Viena: museo Hundertwasser", art: "favoriten", era: "c. 1900",
+    lat: 48.2110, lon: 16.3936, q: "Kunst Haus Wien, Untere Weißgerberstraße 13, Wien",
+    audio: "Si esto os recuerda a Gaudí, vais bien encaminados. Friedensreich Hundertwasser, pintor y arquitecto vienés, odiaba la línea recta: decía que no existe en la naturaleza. Convirtió esta antigua fábrica de muebles Thonet en un museo que abrió en 1991, con fachada de azulejos en damero irregular, columnas de colores y suelos ondulados a propósito. Para él, un suelo que sube y baja era una melodía para los pies. Y fijaos en las ventanas: ahí viven los inquilinos árbol, árboles que crecen desde dentro del edificio. A cinco minutos andando está la Hundertwasserhaus, su bloque de viviendas más famoso.",
+    facts: [
+      "El museo abre todos los días de 10:00 a 18:00. Vosotros venís a verlo por fuera.",
+      "Hundertwasser se inventó su nombre: nació como Friedrich Stowasser.",
+      "La Hundertwasserhaus, en la Kegelgasse, está a unos 400 metros. Son viviendas municipales y solo se ve por fuera."
+    ],
+    secret: "Hundertwasser no cobró honorarios por la Hundertwasserhaus. Dijo que le bastaba con haber evitado que en ese sitio se construyera algo feo."
+  },
+  pickwicks: {
+    name: "Pickwick's", kind: "Cena en un pub del centro", art: "beer", era: "c. 1900",
+    lat: 48.2118, lon: 16.3737, q: "Pickwick's, Marc-Aurel-Straße 10-12, Wien",
+    audio: "Vais a cenar en la parte más antigua de Viena. Bajo estas calles estaba Vindobona, el campamento romano que dio origen a la ciudad, y la calle se llama Marc-Aurel por Marco Aurelio, el emperador filósofo, que según la tradición murió aquí en el año 180. Pickwick's toma su nombre del club de la primera novela de Charles Dickens, y es un pub de hamburguesa, pinta y charla larga. Estáis además en el borde del Triángulo de las Bermudas, el barrio de bares donde, desde los años ochenta, los vieneses dicen que la gente entra y no vuelve a aparecer hasta la mañana.",
+    facts: [
+      "Según su web, los viernes abre de 14:00 a 04:00.",
+      "A dos minutos está el Hoher Markt, con el Ankeruhr, un reloj modernista por el que desfilan figuras de la historia de Viena.",
+      "Bajo el Hoher Markt se pueden visitar restos de casas de oficiales romanos."
+    ],
+    secret: "El Ankeruhr hace su desfile completo de doce figuras solo a mediodía. Pero a cualquier hora podéis ver qué personaje toca: cada hora tiene el suyo, de Marco Aurelio a Haydn."
+  },
+  lamee: {
+    name: "Lamée Rooftop", kind: "Copa en una azotea frente a la catedral", art: "rooftop", era: "c. 1900",
+    lat: 48.2103, lon: 16.3737, q: "Lamée Rooftop, Lichtensteg 2, Wien",
+    audio: "Estáis en la novena planta, sobre la Rotenturmstraße, la calle de la Torre Roja, que debe su nombre a una antigua puerta de la muralla. Desde esta azotea la catedral de San Esteban queda casi a la altura de los ojos, con su tejado de tejas de colores. La Torre Sur mide unos ciento treinta y seis metros y fue durante siglos el puesto del vigía que avisaba de los incendios. Al fondo, si el cielo está limpio, se adivinan las colinas donde empiezan los Bosques de Viena.",
+    facts: [
+      "Abre desde mediodía hasta pasada la medianoche. La azotea es al aire libre: llevad abrigo.",
+      "Si no hay mesa, se puede esperar turno. Si reserváis y no vais, cobran penalización.",
+      "El águila de dos cabezas del tejado, con el año 1831, mira al sur. Desde este lado se ven las otras dos, de 1950: la de Austria y la de Viena."
+    ],
+    secret: "Desde aquí arriba se entiende un truco de Viena: en el centro casi nada se atreve a ser más alto que la catedral. Buscad algo que le haga sombra al Steffl. Os va a costar."
+  },
+  aufzug: {
+    name: "Aufzug Café", kind: "Desayuno dentro de ascensores históricos", art: "cafe", era: "c. 1900",
+    lat: 48.1868, lon: 16.3735, q: "Aufzug Café, Wiedner Gürtel 4, Wien",
+    audio: "Este café es la colección de un hombre que no soportaba ver cómo tiraban ascensores antiguos. Christian Tauß, técnico electricista, fue rescatando cabinas de madera y hierro de las casas vienesas que se reformaban, y en 2023 abrió aquí su café museo. Se puede desayunar dentro de una cabina. La más antigua de la colección es de 1906, y hay un paternoster de 1911 que venía de un banco del Schottentor. El paternoster es ese ascensor sin puertas que nunca se para: una cadena de cabinas que suben por un lado y bajan por el otro, y al que hay que saltar en marcha.",
+    facts: [
+      "Los sábados abre de 9:00 a 17:00.",
+      "El café que sirven es de Kaffeefabrik, un tostador vienés.",
+      "Paternoster significa padrenuestro: las cabinas van en cadena, como las cuentas de un rosario."
+    ],
+    secret: "Preguntad por el Bonzenheber, algo así como el sube-jefazos: una cabina con banco, de cuando subir sentado era cosa de señores. Se puede tomar el café dentro."
+  },
+  wienmuseum: {
+    name: "Wien Museum", kind: "La historia de Viena, gratis, y la fuente de al lado", art: "belvedere", era: "c. 1895",
+    lat: 48.1990, lon: 16.3727, q: "Wien Museum Karlsplatz, Wien",
+    audio: "El Wien Museum cuenta la historia de la ciudad desde los primeros asentamientos hasta hoy, y su exposición permanente es gratis. Reabrió a finales de 2023 después de una gran reforma, con una planta nueva que parece flotar sobre el edificio original de los años cincuenta. Dentro hay maquetas de la ciudad, piezas originales de la catedral de San Esteban y cuadros de Klimt y de Schiele. Está en la Karlsplatz, junto a la Karlskirche, la gran iglesia barroca de la cúpula verde. Y viniendo desde la comida pasáis por la fuente de Schwarzenbergplatz, construida en 1873 para celebrar la llegada del agua de montaña a Viena.",
+    facts: [
+      "Sábados y domingos abre de 10:00 a 18:00. La exposición permanente es gratis.",
+      "Aquí está el retrato de Emilie Flöge, la compañera de vida de Klimt, pintado por él.",
+      "La fuente de Schwarzenbergplatz tiene 365 chorros pequeños en el borde, uno por cada día del año."
+    ],
+    secret: "Si la terraza del museo está abierta, subid: tiene una de las mejores vistas de la Karlskirche, y no hace falta entrada."
+  },
+  kuka: {
+    name: "KUKA Coffee", kind: "Café de especialidad en el barrio nuevo", art: "cafe", era: "c. 1900",
+    lat: 48.1808, lon: 16.3842, q: "KUKA Coffee, Bloch-Bauer-Promenade, Wien",
+    audio: "Desayunáis en el Sonnwendviertel, uno de los barrios más nuevos de Viena. Hasta hace unos años todo esto eran las vías y los almacenes de la antigua Estación del Sur. Cuando se construyó la nueva estación central, inaugurada en 2014, el terreno sobrante se convirtió en viviendas, escuelas y un gran parque. La calle se llama Bloch-Bauer-Promenade por Adele Bloch-Bauer, la mujer del retrato dorado más famoso de Klimt, y por su familia. Ese cuadro ya no está en Viena: tras un largo juicio, en 2006 Austria lo devolvió a la heredera de la familia, y hoy cuelga en Nueva York.",
+    facts: [
+      "KUKA sirve café de especialidad y matcha. No he podido confirmar su horario de domingo: miradlo antes de ir.",
+      "El parque de al lado lleva el nombre de Helmut Zilk, alcalde de Viena entre 1984 y 1994.",
+      "La historia del cuadro se cuenta en la película La dama de oro, con Helen Mirren."
+    ],
+    secret: "Ayer visteis El Beso en el Belvedere. Adele Bloch-Bauer es la única mujer a la que Klimt retrató dos veces de cuerpo entero."
+  },
+  gloriette: {
+    name: "Gloriette", kind: "El mirador de Schönbrunn, en trenecito", art: "schonbrunn", era: "c. 1900",
+    lat: 48.1782, lon: 16.3087, q: "Gloriette Schönbrunn, Wien",
+    audio: "La Gloriette corona la colina de Schönbrunn desde 1775. La mandó construir María Teresa como monumento a la guerra justa, la que trae la paz, y servía de comedor y salón de fiestas con vistas. Su arquitecto reutilizó piedra de un palacio renacentista abandonado. En lo alto, un águila imperial se posa sobre un globo. Se cuenta que el emperador Francisco José desayunaba aquí a menudo. Subís en el trenecito panorámico, que da la vuelta al parque en unos cuarenta y cinco minutos y tiene nueve paradas. Desde arriba tenéis la mejor vista del palacio, con toda Viena detrás.",
+    facts: [
+      "El billete de día del trenecito cuesta desde 17 euros, con subidas y bajadas libres. Circula en temporada y según el tiempo: confirmadlo allí.",
+      "Dentro de la Gloriette hay un café.",
+      "La inscripción del frente nombra a José II y a María Teresa y lleva el año 1775."
+    ],
+    secret: "El año de la inscripción está escrito con una forma antigua de números romanos, con letras C al revés. Buscad CIƆ: es otra manera de escribir la M de mil."
+  },
+  mariatheresien: {
+    name: "Maria-Theresien-Platz", kind: "La plaza de los dos museos gemelos", art: "park", era: "c. 1895",
+    lat: 48.2046, lon: 16.3610, q: "Maria-Theresien-Platz, Wien",
+    audio: "Estáis entre dos edificios gemelos: a un lado el Museo de Historia del Arte y al otro el de Historia Natural, inaugurados en 1891 y 1889 para guardar las colecciones de los Habsburgo. Son idénticos por fuera a propósito. En el centro manda María Teresa, la única mujer que gobernó los dominios de los Habsburgo, durante cuarenta años. El monumento se inauguró en 1888 y mide casi veinte metros. A sus pies están sus generales a caballo, sus consejeros y, entre los artistas, un Mozart niño. María Teresa tuvo dieciséis hijos, reformó el ejército y la hacienda y puso la escuela obligatoria.",
+    facts: [
+      "El monumento es obra de Caspar von Zumbusch, que tardó unos trece años en terminarlo.",
+      "Detrás de la plaza está el MuseumsQuartier, en las antiguas caballerizas imperiales.",
+      "En el Museo de Historia Natural se guarda la Venus de Willendorf, una figurilla de unos 29.500 años."
+    ],
+    secret: "Buscad a Mozart en el monumento: es un niño, de pie junto a Haydn y Gluck. Es el mismo niño que tocó para María Teresa en Schönbrunn, donde habéis estado esta mañana."
+  },
+  rathaus: {
+    name: "Rathaus", kind: "El Ayuntamiento de Viena", art: "stephansdom", era: "c. 1895",
+    lat: 48.2108, lon: 16.3572, q: "Wiener Rathaus, Wien",
+    audio: "El Ayuntamiento de Viena parece una catedral gótica, pero es de 1883. Lo diseñó Friedrich von Schmidt, que había trabajado en la catedral de Colonia y dirigía las obras de San Esteban. La torre central mide noventa y ocho metros, y encima está el Rathausmann, un caballero de hierro con estandarte que la sube hasta unos ciento tres. Cuenta la historia que el emperador no quería que la torre superase los noventa y nueve metros de la vecina Iglesia Votiva, y que el arquitecto cumplió la norma con la torre y la burló con la estatua. La plaza de delante es el salón de la ciudad: mercado de Navidad, pista de hielo en invierno y cine al aire libre en verano.",
+    facts: [
+      "El Rathausmann mide 3,40 metros sin contar el estandarte.",
+      "En el Rathauspark, el parque de al lado, hay una copia del Rathausmann a tamaño real para verlo de cerca.",
+      "Enfrente, al otro lado del Ring, está el Burgtheater, el gran teatro nacional."
+    ],
+    secret: "El Rathausmann calza un 63. Buscad su copia en el parque y comparad vuestro pie con el suyo."
+  },
+  schachtelwirt: {
+    name: "Schachtelwirt", kind: "Cocina austriaca servida en caja", art: "wurst", era: "c. 1900",
+    lat: 48.2117, lon: 16.3745, q: "Schachtelwirt, Judengasse 5, Wien",
+    audio: "Schachtel significa caja y Wirt, tabernero: aquí la cocina austriaca de toda la vida se sirve en una caja de cartón, para llevar o para comer en una de sus pocas mesas. El plato estrella es el Schweinsbraten, el asado de cerdo con corteza crujiente, con su Knödel y su col. Estáis en la Judengasse, la calle de los Judíos, en el barrio más antiguo de Viena. A unos pasos está la Ruprechtskirche, la iglesia de San Ruperto, considerada la más antigua de la ciudad. Y el barrio entero es el Triángulo de las Bermudas, la zona de bares del viernes.",
+    facts: [
+      "Ojo con el domingo: su web dice que abre todos los días hasta las 22:00, pero otras guías dicen que solo abre entre semana. Confirmadlo antes de ir.",
+      "Un Knödel es una bola cocida de pan o de patata, la guarnición nacional.",
+      "La Ruprechtskirche conserva la vidriera y las campanas más antiguas de Viena."
+    ],
+    secret: "Si está cerrado, el plan B está al lado: bajad hasta la Ruprechtskirche, cubierta de hiedra, y cenad en cualquier Beisl de la zona. Beisl es como llaman los vieneses a la taberna de barrio."
+  }
+});
+
+/* Ajustes en sitios que se mantienen */
+PLACES.staatsoper.facts = [
+  "Gustav Mahler, director entre 1897 y 1907, fue quien impuso apagar las luces de la sala durante la función.",
+  "Las entradas de pie se venden en la taquilla de Stehplätze, en el lado de la Operngasse, desde 80 minutos antes de la función. Id los dos: pueden dar solo una por persona.",
+  "También salen por internet a las 10:00 del mismo día, con un máximo de dos por cuenta. Cada sitio de pie tiene su número y una pantallita de subtítulos."
+];
+PLACES.staatsoper.secret = "Mahler fue también quien dejó sin entrar a los que llegaban tarde, y la regla sigue en pie. Si podéis elegir, pedid de pie en Parterre: es la zona de abajo, justo detrás de las butacas caras, y tiene de las mejores vistas de la sala.";
+PLACES.palmenhaussch.name = "Palmenhaus y Casa del Desierto";
+PLACES.palmenhaussch.kind = "Los invernaderos imperiales";
+PLACES.palmenhaussch.facts = [
+  "La planta más veterana del Palmenhaus es un olivo español de unos 350 años.",
+  "En octubre el Palmenhaus abre de 10:00 a 17:00 y la Casa del Desierto de 9:00 a 17:00, con última entrada a las 16:30.",
+  "La Casa del Desierto está justo enfrente, en un pabellón de 1904: cactus, suculentas y animales del desierto."
+];
+PLACES.palmenhausburg.facts[2] = "El Burggarten se abrió al público en 1919. Según vuestro plan, la brasserie cierra a las 23:00.";
+
+GAMES.kaiserwiesn = [
+  { type: "buzz", title: "Habla Wiesn", q: "¿Qué significa Wiesn?", opts: ["Pradera", "Cerveza", "Fiesta", "Carpa"], a: 0, fact: "Wiesn es pradera en dialecto. El Oktoberfest de Múnich se celebra en la Theresienwiese, y de ahí viene el nombre de todas las demás." },
+  { type: "buzz", title: "La noria", q: "¿De qué año es la Noria Gigante del Prater?", opts: ["1897", "1766", "1918", "1949"], a: 0, fact: "De 1897. 1766 es el año en que el Prater se abrió al público, y 1949 el de la película El tercer hombre." },
+  { type: "guess", title: "Las cabinas", q: "¿Cuántas cabinas tiene hoy la Noria Gigante?", answer: 15, unit: "cabinas", fact: "Quince. Al principio tenía treinta, pero tras los daños de la guerra se reconstruyó con la mitad." },
+  { type: "hunt", title: "Caza de la Wiesn", q: "Gana quien vea primero…", targets: ["a alguien con Lederhosen, el pantalón de cuero", "un Dirndl de color verde", "un corazón de pan de jengibre colgado del cuello", "una jarra de un litro", "a alguien bailando encima de un banco"], fact: "Los corazones de pan de jengibre llevan mensajes escritos con azúcar. Se regalan y se cuelgan del cuello; casi nadie se los come." },
+  { type: "mission", title: "Brindis a la austriaca", q: "Brindad diciendo Prost y mirándoos a los ojos. Pierde el primero que aparte la mirada o se ría.", fact: "Prost viene del latín prosit: que aproveche." }
+];
+GAMES.belvedere21 = [
+  { type: "buzz", title: "Edificio viajero", q: "¿De dónde vino este edificio?", opts: ["De la Expo de Bruselas de 1958", "De la Expo de Viena de 1873", "De los Juegos de Múnich", "De una fábrica de Berlín"], a: 0, fact: "Fue el pabellón de Austria en Bruselas 1958. Lo desmontaron y en 1962 reabrió en Viena como museo." },
+  { type: "buzz", title: "El arquitecto", q: "¿Qué más diseñó Karl Schwanzer?", opts: ["La torre de BMW en Múnich", "La Haas Haus", "La Ópera de Sídney", "La Torre del Danubio"], a: 0, fact: "La torre de BMW, con forma de cuatro cilindros de motor, es de 1972." },
+  { type: "mission", title: "Foto de arquitecto", q: "Cada uno tiene 60 segundos para hacer la foto más original del edificio. Decidid entre los dos cuál gana. Si no hay acuerdo, empate.", fact: "Un pabellón de exposición se diseña para impresionar en segundos. Este lleva haciéndolo desde 1958." }
+];
+GAMES.kunsthaus = [
+  { type: "buzz", title: "La manía de Hundertwasser", q: "¿Qué odiaba Hundertwasser?", opts: ["La línea recta", "El color verde", "Los árboles en la ciudad", "Las ventanas redondas"], a: 0, fact: "Decía que la línea recta no existe en la naturaleza y la llamaba impía." },
+  { type: "buzz", title: "Antes de ser museo", q: "¿Qué era antes este edificio?", opts: ["Una fábrica de muebles Thonet", "Una estación de tranvía", "Un cuartel", "Una cervecería"], a: 0, fact: "Thonet es la casa de la silla de café vienesa, la de madera curvada. La habéis visto en todos los cafés." },
+  { type: "hunt", title: "Fachada imposible", q: "Gana quien encuentre primero en la fachada…", targets: ["un árbol que sale de una ventana", "una columna de más de tres colores", "dos ventanas exactamente iguales", "una línea recta de más de dos metros"], fact: "Hundertwasser defendía el derecho a la ventana: que cada vecino pudiera decorar el trozo de fachada que alcanza con el brazo." },
+  { type: "guess", title: "Cuenta las columnas", q: "Antes de contar, cada uno apuesta cuántas columnas de colores hay en la entrada.", onsite: true, unit: "columnas", fact: "Las columnas de cerámica, todas distintas, son una de las firmas de Hundertwasser." }
+];
+GAMES.pickwicks = [
+  { type: "buzz", title: "El de la calle", q: "¿Quién da nombre a la Marc-Aurel-Straße?", opts: ["Un emperador romano", "Un compositor", "Un santo", "Un alcalde"], a: 0, fact: "Marco Aurelio, que según la tradición murió en Vindobona, la Viena romana, en el año 180." },
+  { type: "buzz", title: "El club Pickwick", q: "¿Quién escribió Los papeles póstumos del Club Pickwick?", opts: ["Charles Dickens", "Oscar Wilde", "Arthur Conan Doyle", "Jane Austen"], a: 0, fact: "Fue la primera novela de Dickens, publicada por entregas en 1836. Tenía 24 años." },
+  { type: "guess", title: "La cuenta", q: "Antes de pedirla, cada uno apuesta cuánto va a ser.", onsite: true, unit: "euros", fact: "En Austria la propina se da al pagar: se dice en voz alta el total redondeado, con la propina incluida." },
+  { type: "mission", title: "Pedido con mímica", q: "Uno le pide su bebida al otro solo con gestos. Luego al revés. Gana quien lo adivine en menos intentos.", fact: "En el Triángulo de las Bermudas hay decenas de bares en un puñado de calles. Por eso la gente se pierde." }
+];
+GAMES.lamee = [
+  { type: "buzz", title: "La Torre Roja", q: "¿Por qué se llama Rotenturmstraße?", opts: ["Por una torre roja de la muralla", "Por el color de los tranvías", "Por un cardenal", "Por una cervecería"], a: 0, fact: "La Torre Roja era una puerta de la muralla junto al canal. Se derribó en el siglo XVIII, pero la calle conservó el nombre." },
+  { type: "guess", title: "La torre de enfrente", q: "¿Cuántos metros mide la Torre Sur de la catedral?", answer: 136, unit: "metros", fact: "Unos 136 metros. Se terminó en 1433 y durante siglos fue de las torres más altas de Europa." },
+  { type: "hunt", title: "Viena desde arriba", q: "Desde la azotea, gana quien señale primero…", targets: ["la Noria Gigante del Prater", "una cúpula verde", "una grúa", "otra azotea con gente"], fact: "El verde de tantas cúpulas vienesas es cobre oxidado. Recién puesto, brillaba como una moneda." },
+  { type: "mission", title: "Lo mejor del viernes", q: "Cada uno dice lo mejor del día en una sola frase. Gana la que haga sonreír más al otro. Si os reís los dos, empate.", fact: "El primer día de un viaje siempre es el más largo. Mañana toca Klimt, cerveza y ópera." }
+];
+GAMES.aufzug = [
+  { type: "buzz", title: "Sube y baja", q: "¿Qué es un paternoster?", opts: ["Un ascensor que nunca se para", "Un café con licor", "Un tranvía antiguo", "Un reloj de torre"], a: 0, fact: "Una cadena de cabinas abiertas en movimiento continuo. En Viena aún funciona alguno, pero ya no se instalan." },
+  { type: "guess", title: "La cabina más vieja", q: "¿De qué año es el ascensor más antiguo de la colección?", answer: 1906, unit: "", fact: "De 1906. El paternoster del café es de 1911 y venía de un banco del Schottentor." },
+  { type: "hunt", title: "Ojo de ascensorista", q: "Sin levantaros mucho, gana quien encuentre primero…", targets: ["un botón con un número", "una placa con un año", "una puerta de rejilla", "un banco dentro de una cabina"], fact: "En muchas casas vienesas el ascensor antiguo funcionaba con monedas y solo servía para subir. Bajar, andando." },
+  { type: "mission", title: "Discurso de ascensor", q: "Tenéis 30 segundos cada uno, lo que dura un viaje en ascensor, para convencer al otro del plan perfecto para después de la ópera. Gana el más convincente.", fact: "Lo llaman elevator pitch: si no cabe en un viaje de ascensor, la idea aún no está clara." }
+];
+GAMES.wienmuseum = [
+  { type: "buzz", title: "La entrada", q: "¿Cuánto cuesta la exposición permanente del Wien Museum?", opts: ["Nada", "5 euros", "12 euros", "La voluntad"], a: 0, fact: "Es gratis desde que reabrió en diciembre de 2023. Solo se pagan las exposiciones temporales." },
+  { type: "guess", title: "Los chorros", q: "¿Cuántos chorros pequeños tiene el borde de la fuente de Schwarzenbergplatz?", answer: 365, unit: "chorros", fact: "365, uno por día del año. La fuente celebra la llegada a Viena, en 1873, del agua de manantial de los Alpes, que sigue saliendo del grifo." },
+  { type: "hunt", title: "Tesoros del museo", q: "Dentro del museo, gana quien encuentre primero…", targets: ["una maqueta de la ciudad", "un cuadro de Klimt", "una pieza de la catedral de San Esteban", "un objeto que hayáis usado alguna vez"], fact: "El edificio original es de 1959. La reforma le añadió encima una planta nueva que no toca la antigua." },
+  { type: "order", title: "Ordena Viena", q: "Del más antiguo al más reciente. Primero juega uno y luego el otro.", items: [["Campamento romano de Vindobona", 100], ["Se termina la Torre Sur de la catedral", 1433], ["Segundo asedio otomano", 1683], ["Se ordena derribar las murallas", 1857]], fact: "Del derribo de las murallas nació el Ring, la avenida donde están la Ópera, el Ayuntamiento y los museos que veis este fin de semana." }
+];
+GAMES.kuka = [
+  { type: "buzz", title: "La dama de la calle", q: "¿Quién era Adele Bloch-Bauer?", opts: ["La modelo del retrato dorado de Klimt", "Una emperatriz", "Una cantante de ópera", "La arquitecta del barrio"], a: 0, fact: "Adele era una mecenas vienesa. Klimt la pintó en 1907 cubierta de oro, un año antes de El Beso." },
+  { type: "buzz", title: "¿Dónde está el cuadro?", q: "¿Dónde cuelga hoy el retrato dorado de Adele?", opts: ["En Nueva York", "En el Belvedere", "En París", "En Londres"], a: 0, fact: "En la Neue Galerie de Nueva York. Estuvo en el Belvedere hasta 2006, cuando se devolvió a la familia." },
+  { type: "guess", title: "El precio del café", q: "Antes de mirar la carta, cada uno apuesta cuánto cuesta aquí un flat white.", onsite: true, unit: "euros", fact: "Podéis apostar con decimales: 4,2 vale." },
+  { type: "mission", title: "Cata a ciegas", q: "Uno cierra los ojos y prueba las dos bebidas. Gana si acierta cuál es la suya. Luego al revés.", fact: "La nueva estación central se inauguró en 2014 y liberó todo el terreno de este barrio." }
+];
+GAMES.gloriette = [
+  { type: "buzz", title: "¿Para qué servía?", q: "¿Para qué se construyó la Gloriette?", opts: ["Como monumento y mirador con salón de fiestas", "Como tumba imperial", "Como observatorio", "Como iglesia"], a: 0, fact: "Era un monumento a la guerra justa, la que lleva a la paz, y a la vez un comedor con vistas." },
+  { type: "guess", title: "El año", q: "¿En qué año se terminó la Gloriette?", answer: 1775, unit: "", fact: "En 1775, cinco años antes de morir María Teresa." },
+  { type: "hunt", title: "Detalles de la Gloriette", q: "Gana quien encuentre primero…", targets: ["el águila sobre el globo", "la inscripción en latín", "una armadura esculpida en piedra", "una letra C escrita al revés"], fact: "Parte de la piedra viene del Neugebäude, un palacio renacentista abandonado al otro lado de Viena." },
+  { type: "mission", title: "Viena a dedo", q: "Cada uno señala tres edificios de Viena desde el mirador y dice cuáles son. Gana quien acierte más. El mapa hace de juez.", fact: "Desde aquí se ven la catedral, la Noria del Prater y, en días claros, las colinas de los Bosques de Viena." }
+];
+GAMES.mariatheresien = [
+  { type: "buzz", title: "Familia numerosa", q: "¿Cuántos hijos tuvo María Teresa?", opts: ["16", "4", "9", "12"], a: 0, fact: "Dieciséis en diecinueve años. Entre ellos, María Antonieta y dos emperadores." },
+  { type: "hunt", title: "¿Dónde está Mozart?", q: "Gana quien encuentre primero a Mozart niño en el monumento.", fact: "Está con Haydn y Gluck. Mozart tenía seis años cuando tocó para María Teresa en Schönbrunn." },
+  { type: "guess", title: "Los jinetes", q: "¿Cuántas figuras a caballo rodean a María Teresa en el monumento?", answer: 4, unit: "jinetes", fact: "Cuatro: sus generales Daun, Laudon, Traun y Khevenhüller." },
+  { type: "buzz", title: "Dos verdades y una mentira", q: "¿Cuál es la mentira?", opts: ["Los dos museos son gemelos por fuera", "El monumento mide casi 20 metros", "María Teresa fue coronada en esta plaza"], a: 2, fact: "La plaza no existía en su época: se trazó un siglo después, con el Ring." }
+];
+GAMES.rathaus = [
+  { type: "buzz", title: "Falso gótico", q: "¿De qué año es el Ayuntamiento?", opts: ["1883", "1433", "1683", "1723"], a: 0, fact: "De 1883. Es neogótico: se construyó imitando el estilo de las catedrales medievales." },
+  { type: "guess", title: "La torre", q: "¿Cuántos metros mide la torre central, sin la estatua?", answer: 98, unit: "metros", fact: "98 metros, uno menos que la Iglesia Votiva. Con el Rathausmann llega a unos 103." },
+  { type: "hunt", title: "El gemelo del caballero", q: "Gana quien encuentre primero la copia del Rathausmann en el parque.", fact: "La copia permite ver de cerca lo que arriba es un punto: armadura completa y estandarte." },
+  { type: "buzz", title: "Zapatería imperial", q: "¿Qué número calza el Rathausmann?", opts: ["63", "45", "52", "80"], a: 0, fact: "Un 63. Mide 3,40 metros y pesa unas 1,8 toneladas." }
+];
+GAMES.schachtelwirt = [
+  { type: "buzz", title: "Alemán de taberna", q: "¿Qué significa Schachtel?", opts: ["Caja", "Cuchara", "Asado", "Cerdo"], a: 0, fact: "Caja. Y Wirt es el tabernero: el tabernero de la caja." },
+  { type: "buzz", title: "La guarnición", q: "¿Qué es un Knödel?", opts: ["Una bola cocida de pan o patata", "Una salchicha", "Un postre de manzana", "Una sopa"], a: 0, fact: "Los hay salados y dulces. Los dulces, rellenos de albaricoque, se llaman Marillenknödel." },
+  { type: "guess", title: "La vecina más vieja", q: "¿De qué año dice la tradición que es la Ruprechtskirche?", answer: 740, unit: "", fact: "Del año 740, según la tradición. Los muros más antiguos que se conservan son del siglo XII." },
+  { type: "mission", title: "Pedido en alemán", q: "Gana quien pida su plato entero en alemán sin señalar la carta: Einmal Schweinsbraten, bitte.", fact: "Einmal significa una vez: una ración. Para dos, zweimal." }
+];
+GAMES.palmenhaussch.splice(3, 0, { type: "buzz", title: "La Casa del Desierto", q: "El pabellón de la Casa del Desierto se llama Sonnenuhrhaus. ¿Qué significa?", opts: ["Casa del reloj de sol", "Casa del sol naciente", "Casa de las horas", "Casa de verano"], a: 0, fact: "Casa del reloj de sol, por el que tiene en la fachada. Se construyó en 1904 para las plantas exóticas del emperador." });
+GAMES.palmenhausburg[2].fact = "La paz de 1809 con Napoleón se firmó en Schönbrunn, donde habéis estado esta mañana.";
+{
+  const o = GAMES.salmbrau.find(g => g.type === "order");
+  o.items = [["Se termina el Belvedere Superior", 1723], ["Se inaugura la Ópera", 1869], ["Klimt pinta El Beso", 1908], ["Abre el museo de la ciudad en la Karlsplatz", 1959]];
+  o.fact = "Todo lo que veis hoy cabe en poco más de dos siglos: del barroco del príncipe Eugenio al museo de la Karlsplatz.";
+}
+
+Object.assign(MESSAGES, {
+  kaiserwiesn: "Wiesn significa pradera: para montar una fiesta solo hace falta un trozo de hierba y ganas. Detrás tenéis una noria que lleva desde 1897 dando vueltas sin llegar a ningún sitio y sin perder la gracia. Tomad nota: lo que importa es con quién vas en la cabina.",
+  belvedere21: "Este edificio se construyó para Bruselas, lo desmontaron pieza a pieza y volvió a casa. Nadie dijo que lo bueno tuviera que quedarse quieto. Vosotros también funcionáis en cualquier ciudad: lo que os sostiene viaja con vosotros.",
+  kunsthaus: "Hundertwasser decía que la línea recta no existe en la naturaleza, y que un suelo torcido es una melodía para los pies. Vuestro camino tampoco ha sido recto, y mirad qué bien suena. No os alicatéis nunca del todo.",
+  pickwicks: "Marco Aurelio, el emperador que da nombre a esta calle, dejó escrito algo así como que la felicidad depende de la calidad de los pensamientos. Dos mil años después sigue siendo verdad, aunque una buena hamburguesa también ayuda. Brindad por haber llegado.",
+  lamee: "Primera noche y ya estáis por encima de los tejados. Desde aquí Viena parece ordenada y tranquila, como todo cuando se mira con un poco de altura. Guardad el truco para cuando abajo se complique. Y brindad: el fin de semana acaba de empezar.",
+  aufzug: "Un señor vio que tiraban ascensores viejos y decidió que merecían una segunda vida, con café. Lo que se cuida no pasa de moda. Hoy os toca subir: Klimt, cerveza y ópera. Desayunad bien.",
+  wienmuseum: "Una ciudad entera cabe en un museo y la entrada es gratis: lo importante casi nunca cuesta dinero. Viena tardó dos mil años en ser lo que veis. Vosotros vais bastante más rápido. Seguid así, que a las siete hay ópera.",
+  kuka: "Donde había vías muertas ahora hay un parque, un barrio y este café. Lo que se queda sin uso puede convertirse en otra cosa si alguien se empeña. Último día completo: no lo gastéis con prisa.",
+  gloriette: "Subir cuesta, por eso la vista vale. Desde aquí el palacio de las 1.441 habitaciones parece una maqueta, y los problemas, más o menos igual. Venid a sitios altos de vez en cuando, y venid juntos.",
+  mariatheresien: "Dos museos idénticos mirándose de frente y, en medio, una mujer que mandó cuarenta años y crio a dieciséis hijos. Si alguna vez os parece que vais justos de tiempo, acordaos de María Teresa. Y de que vosotros os tenéis el uno al otro para repartir.",
+  rathaus: "Al arquitecto le dijeron que su torre no podía pasar de cierta altura. Cumplió la norma y le plantó un caballero encima. Hay que saber respetar las reglas y, de vez en cuando, encontrarles la vuelta con elegancia. De eso vosotros ya sabéis.",
+  schachtelwirt: "Aquí meten lo mejor de la cocina de la abuela en una caja de cartón, y funciona. El envoltorio nunca fue lo importante. Última cena del viaje: pedid lo que os apetezca de verdad y repartíoslo."
+});
+MESSAGES.palmenhausburg = "Este jardín fue solo del emperador hasta 1919. Hoy cualquiera brinda bajo sus palmeras, y es mucho más bonito así. Casi todo mejora cuando se comparte. Última copa del viaje: que sea larga.";
+Object.assign(RADIUS, { kaiserwiesn: 350, belvedere21: 150, kunsthaus: 150, pickwicks: 80, lamee: 80, aufzug: 120, wienmuseum: 150, kuka: 150, gloriette: 200, mariatheresien: 150, rathaus: 200, schachtelwirt: 60 });
+
+DAYS.length = 0;
+DAYS.push(
+  { key: "2026-10-09", short: "Vie", num: "9", label: "Viernes 9 de octubre", title: "Oktoberfest, Hundertwasser y azotea",
+    stops: [
+      { t: "17:00", p: "belvedere21", title: "De camino: Belvedere 21", note: "Solo pasar por delante, de camino al Prater." },
+      { t: "17:30", p: "kaiserwiesn", title: "Kaiser Wiesn, el Oktoberfest", note: "Sobre las 17:30 o 18:00. Entrada libre al recinto." },
+      { t: "19:30", p: "kunsthaus", title: "Kunst Haus, el Gaudí de Viena", note: "Para verlo por fuera. Hora orientativa." },
+      { t: "20:30", p: "pickwicks", title: "Cena en Pickwick's", note: "Marc-Aurel-Straße 10-12. Hora orientativa." },
+      { t: "22:00", p: "lamee", title: "Copa en la azotea", note: "Lamée Rooftop, novena planta. Hora orientativa." }
+    ] },
+  { key: "2026-10-10", short: "Sáb", num: "10", label: "Sábado 10 de octubre", title: "Klimt, cerveza y ópera",
+    stops: [
+      { t: "09:00", p: "aufzug", title: "Desayuno entre ascensores", note: "Wiedner Gürtel 4. Los sábados abre a las 9:00." },
+      { t: "10:30", p: "belvedere", title: "Palacio Belvedere y El Beso", note: "Belvedere Superior, con los cuadros de Klimt.", tag: ["warn", "Comprar entrada con franja"], link: ["https://www.belvedere.at", "Comprar entradas"] },
+      { t: "12:45", p: "belvedere", title: "Jardines del palacio", note: "Paseo por los jardines, de camino a la comida. Hora orientativa." },
+      { t: "14:00", p: "salmbrau", title: "Comida en Salm Bräu", note: "Justo al salir del recinto del Belvedere.", tag: ["warn", "Reservar mesa"] },
+      { t: "15:30", p: "wienmuseum", title: "Museo de Viena y la fuente", note: "Exposición permanente gratis. Cierra a las 18:00. Hora orientativa." },
+      { t: "17:00", p: "staatsoper", title: "Cola para las entradas de pie", note: "La taquilla de Stehplätze, en el lado de la Operngasse, abre a las 17:40.", tag: ["warn", "Taquilla a las 17:40"] },
+      { t: "19:00", p: "staatsoper", title: "Noche de ópera", note: "Función a las 19:00. Dejad los abrigos en el ropero." },
+      { t: "21:30", p: "bitzinger", title: "Perrito en Bitzinger", note: "Junto a la Albertina. Después, si apetece: bares o paseo hasta la estatua de Mozart." }
+    ] },
+  { key: "2026-10-11", short: "Dom", num: "11", label: "Domingo 11 de octubre", title: "Schönbrunn, el Ring y última copa",
+    stops: [
+      { t: "09:00", p: "kuka", title: "Desayuno en KUKA", note: "Bloch-Bauer-Promenade. Confirmad el horario de domingo." },
+      { t: "10:15", p: "schonbrunn", title: "Schönbrunn", note: "En tranvía o en metro U4. Hora orientativa." },
+      { t: "10:45", p: "palmenhaussch", title: "Palm House", note: "El gran invernadero. Entrada en taquilla." },
+      { t: "11:45", p: "palmenhaussch", title: "Casa del Desierto", note: "Justo enfrente del Palmenhaus. Última entrada a las 16:30." },
+      { t: "12:45", p: "gloriette", title: "Trenecito a la Gloriette", note: "El tren panorámico para en Tiergarten y Palmenhaus y sube a la Gloriette." },
+      { t: "14:00", p: "schonbrunn", title: "Comida en Schönbrunn", note: "A las 14:00, antes de volver al centro." },
+      { t: "16:00", p: "mariatheresien", title: "Plaza de María Teresa", note: "En metro U4. Hora orientativa." },
+      { t: "17:00", p: "rathaus", title: "Ayuntamiento de Viena", note: "Paseo por el Ring desde la plaza. Hora orientativa." },
+      { t: "19:30", p: "schachtelwirt", title: "Cena en Schachtelwirt", note: "Judengasse 5.", tag: ["warn", "Confirmar si abre en domingo"] },
+      { t: "21:30", p: "palmenhausburg", title: "Última copa en el invernadero", note: "Según vuestro plan, cierra a las 23:00." }
+    ] },
+  { key: "2026-10-12", short: "Lun", num: "12", label: "Lunes 12 de octubre", title: "Café de despedida",
+    stops: [
+      { t: "10:30", p: null, title: "Café de despedida", note: "De 10:30 a 11:00, antes de salir hacia el aeropuerto." },
+      { t: "", p: null, title: "Rumbo a casa", note: "Vuelo a Málaga a las 14:30. Auf Wiedersehen, Wien." }
+    ] },
+  { key: "extras", extra: true, short: "Más", num: "+", label: "Planes extras", title: "Por si hay un hueco, o para Pilu cuando se quede en Viena",
+    stops: [
+      { t: "", p: "stephansdom", title: "Catedral de San Esteban", note: "Visita al interior y subida a la Torre Sur: 343 escalones, cierra a las 17:30." },
+      { t: "", p: "onyx", title: "Atardecer frente a la catedral", note: "Una copa en el Onyx Bar, en la Haas Haus." },
+      { t: "", p: "stadtpark", title: "Paseo por el Stadtpark", note: "La estatua dorada de Strauss y el portal del río Viena." },
+      { t: "", p: "donaukanal", title: "Paseo por el Donaukanal", note: "Arte urbano y terrazas junto al agua." },
+      { t: "", p: "goldegg", title: "Desayuno vienés clásico", note: "Café Goldegg. Abre a las 9:00 en fin de semana y a las 8:00 entre semana." },
+      { t: "", p: "shangrila", title: "Noche de karaoke", note: "Shangrila, Franzosengraben 3. Metro U3, parada Erdberg." },
+      { t: "", p: "favoriten", title: "Vuestro barrio: Favoriten", note: "El mercado de Viktor-Adler-Platz y Reumannplatz." }
+    ] }
+);
+
+/* Foto recortada de los sitios nuevos */
+Object.assign(ZOOM_GAMES, {
+  kaiserwiesn: { type: "zoom", title: "El cartel de la fiesta", q: "Gana quien encuentre primero este cartel. La foto es de la apertura de este año.", hint: "Mirad hacia arriba, en uno de los accesos al recinto.", fact: "La Kaiserwiese, la pradera del emperador, es el prado que queda justo delante de la Noria Gigante." },
+  belvedere21: { type: "zoom", title: "La esquina que flota", q: "Gana quien encuentre primero esta esquina del edificio.", hint: "Es la planta de arriba, la de cristal, vista desde el lado del jardín.", fact: "La planta alta cuelga de cuatro grandes pilares de acero: por eso el pabellón parece flotar sobre la baja." },
+  kunsthaus: { type: "zoom", title: "La columna de colores", q: "Gana quien encuentre primero esta columna exacta. Hay varias, y ninguna es igual.", hint: "Está en la entrada principal, a la altura de la calle.", fact: "Hundertwasser hacía las columnas apilando piezas de cerámica distintas, como cuentas de un collar." },
+  pickwicks: { type: "zoom", title: "La cúpula de la esquina", q: "Gana quien encuentre primero este remate. Está en la calle de la cena.", hint: "Mirad hacia arriba en el cruce de la Marc-Aurel-Straße: corona un edificio de esquina.", fact: "En la Viena de 1900 una cúpula en la esquina era la forma de presumir de edificio: se veía desde varias calles a la vez." },
+  lamee: { type: "zoom", title: "La punta del Steffl", q: "Gana quien señale primero este punto exacto desde la azotea.", hint: "Es lo más alto que tenéis delante.", fact: "La Torre Sur se terminó en 1433. La torre gemela del lado norte nunca se acabó: se quedó a medias y hoy guarda la campana Pummerin." },
+  wienmuseum: { type: "zoom", title: "La planta que flota", q: "Gana quien encuentre primero esta esquina desde la plaza.", hint: "Es la parte nueva del museo, la de arriba.", fact: "La planta nueva se apoya en una estructura propia y no descansa sobre el edificio de 1959. Entre las dos queda una terraza." },
+  gloriette: { type: "zoom", title: "El águila de lo alto", q: "Gana quien encuentre primero esta figura.", hint: "Mirad el centro de la Gloriette, lo más arriba posible.", fact: "El águila imperial se posa sobre un globo y está rodeada de trofeos de guerra: armaduras, banderas y escudos de piedra." },
+  mariatheresien: { type: "zoom", title: "La cúpula gemela", q: "Gana quien señale primero el museo correcto. Ojo: hay dos cúpulas casi iguales.", hint: "Fijaos en la estatua que corona cada cúpula.", fact: "La de la foto es la del Museo de Historia del Arte, coronada por Palas Atenea. La del Museo de Historia Natural lleva a Helios, el dios del sol." },
+  rathaus: { type: "zoom", title: "El reloj de la torre", q: "Gana quien encuentre primero este reloj.", hint: "Está en la torre central, a media altura.", fact: "Encima del reloj, en la punta, está el Rathausmann. Desde abajo parece pequeño, pero mide 3,40 metros." }
+});
+for (const k of ["kaiserwiesn", "belvedere21", "kunsthaus", "pickwicks", "lamee", "wienmuseum", "gloriette", "mariatheresien", "rathaus"]) GAMES[k].push(ZOOM_GAMES[k]);

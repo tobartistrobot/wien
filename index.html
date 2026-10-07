@@ -552,6 +552,10 @@ h5{font-family:var(--display);font-weight:400;font-size:28px;margin:26px 0 8px}
 .tri .none span{font-size:12.5px;color:var(--muted)}
 .tri .me{box-shadow:0 0 0 2px var(--gold)}
 .rc-bye{margin:26px 0 0;font-family:var(--display);font-size:27px;line-height:1.2;text-align:center}
+
+.map-empty{margin:0;padding:40px 20px;text-align:center;color:var(--muted)}
+
+.days .day-btn{min-width:60px;padding:8px 11px}
 </style>
 </head>
 <body>
@@ -592,9 +596,9 @@ h5{font-family:var(--display);font-weight:400;font-size:28px;margin:26px 0 8px}
   <section class="view" id="v-pp" aria-labelledby="h-pp">
     <h2 id="h-pp">El pasaporte</h2>
     <div class="passport">
-      <div class="pp-head"><p>Sellad cada sitio cuando estéis allí. Se comparte entre los dos móviles.</p><span class="pp-count" id="pp-count">0/14</span></div>
+      <div class="pp-head"><p>Sellad cada sitio cuando estéis allí. Se comparte entre los dos móviles.</p><span class="pp-count" id="pp-count"></span></div>
       <div class="stamps" id="stamps"></div>
-      <div class="pp-done" id="pp-done">Pasaporte completo. Habéis visto Viena de verdad, de Klimt al karaoke.</div>
+      <div class="pp-done" id="pp-done">Pasaporte completo. Habéis visto Viena de verdad, de la Wiesn a la ópera.</div>
       <button class="pp-reset" id="pp-reset">Borrar sellos</button>
     </div>
   </section>
@@ -604,7 +608,7 @@ h5{font-family:var(--display);font-weight:400;font-size:28px;margin:26px 0 8px}
     <div class="passport" id="score"></div>
   </section>
 
-  <p class="foot">Hecho a medida para este viaje. Fotos de Wikimedia Commons, con su crédito en cada ficha; horarios comprobados en septiembre de 2026.</p>
+  <p class="foot">Hecho a medida para este viaje. Fotos de Wikimedia Commons, con su crédito en cada ficha; plan actualizado el 7 de octubre de 2026.</p>
 </main>
 
 <nav class="nav" aria-label="Secciones">
@@ -633,8 +637,9 @@ h5{font-family:var(--display);font-weight:400;font-size:28px;margin:26px 0 8px}
 <input type="file" accept="image/*" id="ph-in" hidden>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script src="vendor/supabase.js?v=59d39487c3"></script>
-<script src="data.js?v=75d4d88a3a"></script>
+<script src="data.js?v=ca80477e48"></script>
 <script src="photos.js?v=1a8e333086" async></script>
-<script src="app.js?v=6bacd3e4e0"></script>
+<script src="photos2.js?v=50073513e3" async></script>
+<script src="app.js?v=484439466d"></script>
 </body>
 </html>
