@@ -1786,9 +1786,12 @@ async function vozScan() {
 async function vozGet(k, fetchIfMissing) {
   const c = await vozCache(); if (!c) return null;
   let r = await c.match(vozKey(k));
-  if (!r && fetchIfMissing && syncOn() && navigator.onLine && NET.tts) {
+  if (!r && fetchIfMissing && syncOn() && navigator.onLine) {
     try {
-      const blob = await NET.tts(PLACES[k].audio);
+      // primero los audios grabados con la voz de Leny (carpeta voz/), y si no están, el servicio de Azure
+      let blob = null;
+      try { const f = await fetch(`voz/${k}.mp3`, { cache: "no-store" }); if (f.ok && /audio|mpeg|octet/.test(f.headers.get("content-type") || "")) blob = await f.blob(); } catch (e) {}
+      if (!blob && NET.tts && vozFail < 2) blob = await NET.tts(PLACES[k].audio);
       if (blob && blob.size > 2000) { await c.put(vozKey(k), new Response(blob, { headers: { "Content-Type": blob.type || "audio/mpeg" } })); r = await c.match(vozKey(k)); vozFail = 0; }
     } catch (e) { vozFail++; }
   }
@@ -1797,11 +1800,11 @@ async function vozGet(k, fetchIfMissing) {
 }
 /* Descarga en segundo plano las audioguías que falten */
 async function vozPrefetch() {
-  if (vozBusy || !syncOn() || !navigator.onLine || vozFail > 2) return;
+  if (vozBusy || !syncOn() || !navigator.onLine) return;
   vozBusy = true;
   for (const k of Object.keys(PLACES)) {
     if (vozReady[k]) continue;
-    if (!(await vozGet(k, true))) break;
+    await vozGet(k, true);
     if (current && current.k === k) { const s = $("#guide-sub"); if (s) s.textContent = s.textContent.replace("en español", "con la voz de Leny"); }
   }
   vozBusy = false;

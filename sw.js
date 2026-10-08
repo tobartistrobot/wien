@@ -1,10 +1,10 @@
 /* Wien · Kevin y Pilu. Guarda la app en el móvil para que funcione sin conexión. */
-const VERSION = "wien-49fb6b7316";
+const VERSION = "wien-7315b7b4f2";
 const ASSETS = [
   "data.js?v=ca80477e48",
   "photos.js?v=1a8e333086",
   "photos2.js?v=50073513e3",
-  "app.js?v=6e593e3b9e",
+  "app.js?v=36a6937275",
   "vendor/supabase.js?v=59d39487c3",
   "manifest.webmanifest?v=50ec9afab6",
   "fonts/jost-latin-400-normal.woff2",
