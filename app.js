@@ -64,6 +64,11 @@ function supaNet() {
       ch.on("broadcast", { event: "m" }, m => onMsg(m.payload));
       ch.subscribe(st => onStatus(st === "SUBSCRIBED"));
     },
+    async tts(text) {
+      const r = await fetch(CFG.url + "/functions/v1/wien-voz", { method: "POST", headers: { "Content-Type": "application/json", apikey: CFG.key, Authorization: "Bearer " + CFG.key }, body: JSON.stringify({ code, text }) });
+      if (!r.ok) throw new Error("tts " + r.status);
+      return r.blob();
+    },
     send(payload) { if (!ch) return; try { const r = ch.send({ type: "broadcast", event: "m", payload }); if (r && r.catch) r.catch(() => {}); } catch (e) {} },
     leave() { if (ch) { try { cl().removeChannel(ch); } catch (e) {} ch = null; } }
   };
@@ -137,6 +142,7 @@ async function connect() {
     NET.join(name, onNetMsg, ok => { const was = net.rt; net.rt = ok; if (ok && !was) { hello(); pull(); } renderNet(); });
   }
   pull(true); push(); syncPhotos();
+  setTimeout(vozPrefetch, 4000);
 }
 function hello(re) { if (syncOn() && net.rt) NET.send({ t: "hi", f: me, dev: DEV, re: re ? 1 : 0 }); }
 function onNetMsg(m) {
@@ -160,7 +166,7 @@ document.addEventListener("visibilitychange", () => {
   if (syncOn()) { hello(); pull(); push(); syncPhotos(); }
   idleReload();
 });
-addEventListener("online", () => { if (syncOn()) { pull(); push(); syncPhotos(); } });
+addEventListener("online", () => { if (syncOn()) { pull(); push(); syncPhotos(); vozFail = 0; vozPrefetch(); } });
 addEventListener("offline", () => { net.db = false; renderNet(); });
 addEventListener("pagehide", () => { if (syncOn() && net.rt) NET.send({ t: "off", f: me, dev: DEV }); });
 
@@ -412,7 +418,7 @@ function openSheet(di, si) {
     <section class="guide" id="guide" aria-label="Audioguía">
       <div class="guide-head">
         <button class="play" id="play" aria-label="Escuchar la audioguía"><svg viewBox="0 0 24 24" id="play-ic"><path d="M8 5v14l11-7z"/></svg></button>
-        <div><h4>Audioguía</h4><p>${Math.max(1, Math.round(P.audio.split(" ").length / 150))} min, en español</p></div>
+        <div><h4>Audioguía</h4><p id="guide-sub">${Math.max(1, Math.round(P.audio.split(" ").length / 150))} min, ${vozReady[k] ? "con la voz de Leny" : "en español"}</p></div>
         <div class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
       </div>
       <p class="script" id="script">${spans}</p>
@@ -483,6 +489,9 @@ function doStamp() {
 /* ---------- Audioguía ---------- */
 let speaking = false;
 function stopSpeech() {
+  vozLoading = null;
+  if (vozAudio) { try { vozAudio.pause(); URL.revokeObjectURL(vozAudio.src); } catch (e) {} vozAudio = null; }
+  const gl = $("#guide"); if (gl) gl.classList.remove("loading");
   speaking = false;
   try { speechSynthesis.cancel(); } catch (e) {}
   const g = $("#guide"); if (g) g.classList.remove("playing");
@@ -493,7 +502,7 @@ function pickVoice() {
   const vs = speechSynthesis.getVoices();
   return vs.find(v => v.lang === "es-ES" && /google|natural|premium|enhanced/i.test(v.name)) || vs.find(v => v.lang === "es-ES") || vs.find(v => /^es/i.test(v.lang));
 }
-function toggleSpeech() {
+function speakBrowser() {
   if (!("speechSynthesis" in window)) { showWarn("Este navegador no puede leer en voz alta. Puedes leer la audioguía aquí debajo."); return; }
   if (speaking) { stopSpeech(); return; }
   const P = PLACES[current.k];
@@ -1706,7 +1715,8 @@ function connDialog() {
     <ul class="diag">${li(net.db === true, net.bad ? "La clave de pareja no es válida" : net.db === true ? "Base de datos: conectada" : "Base de datos: sin conexión ahora")}
       ${li(net.rt, net.rt ? "Tiempo real: conectado" : "Tiempo real: desconectado")}
       ${li(peerOnline(), peerOnline() ? `${nm(peer())} está en línea` : `${nm(peer())} no tiene la app abierta ahora`)}
-      ${li(!n, n ? `${n} cambios esperando conexión para subir` : "Todo subido")}</ul>
+      ${li(!n, n ? `${n} cambios esperando conexión para subir` : "Todo subido")}
+      ${li(Object.keys(vozReady).length === PP.length, `Voz de Leny: ${Object.keys(vozReady).length} de ${PP.length} audioguías en el móvil`)}</ul>
     <p class="m-p">Clave de pareja: <b>${esc(code)}</b></p>
     <div class="row2"><button class="btn" data-conn="test">Probar ahora</button><button class="btn primary" data-conn="share">Enviar enlace a ${nm(peer())}</button></div>
     <button class="btn ghost" data-conn="change">Cambiar de jugador o de clave</button>`);
@@ -1760,6 +1770,70 @@ function attachPhotos() {
   return n;
 }
 
+/* ---------- Voz de Leny ----------
+   La audioguía se pide una vez a Azure (a través de la función wien-voz, que guarda la clave)
+   y se queda en el móvil para escucharla sin conexión. Si no hay audio, lee la voz del navegador. */
+const VOZ = "leny-1";
+let vozAudio = null, vozLoading = null, vozBusy = false, vozFail = 0;
+const vozReady = {};
+const hash32 = t => { let h = 2166136261; for (let i = 0; i < t.length; i++) { h ^= t.charCodeAt(i); h = Math.imul(h, 16777619); } return (h >>> 0).toString(16); };
+const vozKey = k => new URL(`__voz/${VOZ}/${k}-${hash32(PLACES[k].audio)}.mp3`, location.href).href;
+async function vozCache() { try { return await caches.open("wien-voz"); } catch (e) { return null; } }
+async function vozScan() {
+  const c = await vozCache(); if (!c) return;
+  for (const k in PLACES) if (await c.match(vozKey(k))) vozReady[k] = 1;
+}
+async function vozGet(k, fetchIfMissing) {
+  const c = await vozCache(); if (!c) return null;
+  let r = await c.match(vozKey(k));
+  if (!r && fetchIfMissing && syncOn() && navigator.onLine && NET.tts) {
+    try {
+      const blob = await NET.tts(PLACES[k].audio);
+      if (blob && blob.size > 2000) { await c.put(vozKey(k), new Response(blob, { headers: { "Content-Type": blob.type || "audio/mpeg" } })); r = await c.match(vozKey(k)); vozFail = 0; }
+    } catch (e) { vozFail++; }
+  }
+  if (r) { vozReady[k] = 1; return r.blob(); }
+  return null;
+}
+/* Descarga en segundo plano las audioguías que falten */
+async function vozPrefetch() {
+  if (vozBusy || !syncOn() || !navigator.onLine || vozFail > 2) return;
+  vozBusy = true;
+  for (const k of Object.keys(PLACES)) {
+    if (vozReady[k]) continue;
+    if (!(await vozGet(k, true))) break;
+    if (current && current.k === k) { const s = $("#guide-sub"); if (s) s.textContent = s.textContent.replace("en español", "con la voz de Leny"); }
+  }
+  vozBusy = false;
+}
+async function toggleSpeech() {
+  if (speaking || vozLoading) { stopSpeech(); return; }
+  const k = current.k; vozLoading = k;
+  $("#guide").classList.add("loading");
+  const blob = await vozGet(k, true);
+  const still = vozLoading === k && current && current.k === k;
+  vozLoading = null; const g = $("#guide"); if (g) g.classList.remove("loading");
+  if (!still) return;
+  if (blob) playLeny(blob, k); else speakBrowser();
+}
+function playLeny(blob, k) {
+  const a = new Audio(URL.createObjectURL(blob)); vozAudio = a;
+  const spans = [...document.querySelectorAll("#script span")], total = PLACES[k].audio.length;
+  const hl = i => spans.forEach(s => s.classList.toggle("hl", +s.dataset.a <= i && i < +s.dataset.b));
+  a.ontimeupdate = () => {
+    if (!a.duration || !isFinite(a.duration)) return;
+    hl(Math.floor(a.currentTime / a.duration * total));
+    const on = spans.find(s => s.classList.contains("hl"));
+    if (on && on.getBoundingClientRect().bottom > innerHeight - 40) on.scrollIntoView({ block: "center", behavior: "smooth" });
+  };
+  a.onended = () => stopSpeech();
+  a.onerror = () => { stopSpeech(); speakBrowser(); };
+  speaking = true; $("#guide").classList.add("playing");
+  $("#play-ic").innerHTML = '<path d="M7 5h4v14H7zM13 5h4v14h-4z"/>';
+  const s = $("#guide-sub"); if (s) s.textContent = s.textContent.replace("en español", "con la voz de Leny");
+  a.play().catch(() => { stopSpeech(); speakBrowser(); });
+}
+
 /* ---------- Arranque ---------- */
 derive();
 attachPhotos();
@@ -1772,6 +1846,7 @@ window.__photosReady = () => {
 const st0 = status(); if (st0.today > -1) day = st0.today;
 renderHero(); renderPlan(); renderMap(); renderPassport(); renderScore(); renderNet(); renderInstall();
 setInterval(() => { renderHero(); if (!current) renderPlan(); }, 30000);
+vozScan();
 phLoad().then(() => { phReady = true; for (const k in PH) photoChanged(k); syncPhotos(); });
 if (!me && !store.get("wien-solo", 0)) setup(true); else connect();
 if (store.get("wien-geo", 0) && tripOn()) startGeo();
