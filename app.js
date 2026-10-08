@@ -1786,12 +1786,12 @@ async function vozScan() {
 async function vozGet(k, fetchIfMissing) {
   const c = await vozCache(); if (!c) return null;
   let r = await c.match(vozKey(k));
-  if (!r && fetchIfMissing && syncOn() && navigator.onLine) {
+  if (!r && fetchIfMissing && navigator.onLine) {
     try {
       // primero los audios grabados con la voz de Leny (carpeta voz/), y si no están, el servicio de Azure
       let blob = null;
       try { const f = await fetch(`voz/${k}.mp3`, { cache: "no-store" }); if (f.ok && /audio|mpeg|octet/.test(f.headers.get("content-type") || "")) blob = await f.blob(); } catch (e) {}
-      if (!blob && NET.tts && vozFail < 2) blob = await NET.tts(PLACES[k].audio);
+      if (!blob && NET.tts && syncOn() && vozFail < 2) blob = await NET.tts(PLACES[k].audio);
       if (blob && blob.size > 2000) { await c.put(vozKey(k), new Response(blob, { headers: { "Content-Type": blob.type || "audio/mpeg" } })); r = await c.match(vozKey(k)); vozFail = 0; }
     } catch (e) { vozFail++; }
   }
@@ -1800,7 +1800,7 @@ async function vozGet(k, fetchIfMissing) {
 }
 /* Descarga en segundo plano las audioguías que falten */
 async function vozPrefetch() {
-  if (vozBusy || !syncOn() || !navigator.onLine) return;
+  if (vozBusy || !navigator.onLine) return;
   vozBusy = true;
   for (const k of Object.keys(PLACES)) {
     if (vozReady[k]) continue;
@@ -1849,7 +1849,7 @@ window.__photosReady = () => {
 const st0 = status(); if (st0.today > -1) day = st0.today;
 renderHero(); renderPlan(); renderMap(); renderPassport(); renderScore(); renderNet(); renderInstall();
 setInterval(() => { renderHero(); if (!current) renderPlan(); }, 30000);
-vozScan();
+vozScan().then(() => setTimeout(vozPrefetch, 3000));
 phLoad().then(() => { phReady = true; for (const k in PH) photoChanged(k); syncPhotos(); });
 if (!me && !store.get("wien-solo", 0)) setup(true); else connect();
 if (store.get("wien-geo", 0) && tripOn()) startGeo();

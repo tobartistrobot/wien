@@ -1,0 +1,161 @@
+{
+  "instrucciones": "Guiones reescritos con la personalidad de Leny (mismos datos, contados con intriga). 'texto' es el texto para la app; el MP3 de cada parada (campo archivo) lo lee con la voz de Leny. MP3 mono, 24 kHz, 48 kbps.",
+  "guiones": [
+    {
+      "n": 1,
+      "archivo": "belvedere21.mp3",
+      "sitio": "Belvedere 21",
+      "texto": "Fijaos bien en este edificio, porque tiene truco: no nació aquí. Nació en Bruselas. El arquitecto Karl Schwanzer lo diseñó como pabellón de Austria para la Exposición Universal de 1958… y ganó el gran premio de arquitectura. Cuando la feria terminó, hicieron algo increíble: lo desmontaron pieza a pieza, se lo trajeron y lo volvieron a montar aquí, en Viena. En 1962 reabrió como museo del arte del siglo veinte, y los vieneses, que para los motes son rapidísimos, lo bautizaron enseguida: la casa del veinte. Pasó años cerrado, renació en 2011 y hoy es el hogar del arte más contemporáneo del Belvedere. Solo pasáis por delante, pero regaladle una mirada: es un edificio de acero y cristal que parece flotar… y que ha viajado más que mucha gente."
+    },
+    {
+      "n": 2,
+      "archivo": "kaiserwiesn.mp3",
+      "sitio": "Kaiser Wiesn",
+      "texto": "Escuchad… ¿oís la música? Estáis en la Kaiser Wiesn, el Oktoberfest de Viena. Cada otoño, la pradera del emperador, la Kaiserwiese, se llena de carpas gigantes, de cabañas alpinas, las Almen, de música en directo desde el mediodía hasta casi medianoche, y de un pueblo entero de puestos con comida de todas las regiones de Austria. Y lo mejor: entrar es gratis; solo se pagan las fiestas de noche dentro de las carpas. Ahora mirad hacia arriba. Esa noria gigante lleva girando aquí desde 1897: más de un siglo viendo fiestas. Y este suelo que pisáis guarda un secreto: el Prater fue el coto de caza privado de los emperadores… hasta que en 1766 José segundo hizo algo revolucionario: lo abrió al pueblo. Desde entonces, esto es de todos. Así que, ¡a disfrutarlo como auténticos vieneses!"
+    },
+    {
+      "n": 3,
+      "archivo": "kunsthaus.mp3",
+      "sitio": "Kunst Haus Wien",
+      "texto": "Si al ver esto habéis pensado en Gaudí, vais muy bien encaminados. Esta es la obra de Friedensreich Hundertwasser, un pintor y arquitecto vienés que tenía una enemiga declarada: la línea recta. Decía que no existe en la naturaleza, y que era impía e inmoral. Así que cogió una antigua fábrica de muebles y la volvió del revés: fachada de azulejos en damero torcido, columnas de colores y suelos que suben y bajan a propósito. Abrió como museo en 1991. Para él, un suelo ondulado era una melodía para los pies: caminad despacio y notadlo. Y ahora mirad las ventanas: ahí viven los inquilinos árbol, árboles que crecen desde dentro del edificio, como un vecino más. Si os quedáis con ganas, a cinco minutos andando está la Hundertwasserhaus, su bloque de viviendas más famoso: gente normal viviendo dentro de un cuento."
+    },
+    {
+      "n": 4,
+      "archivo": "pickwicks.mp3",
+      "sitio": "Pickwick's",
+      "texto": "Antes del primer bocado, una cosa: bajo vuestros pies hay un imperio. Literalmente. Aquí debajo estaba Vindobona, el campamento romano del que nació Viena. Por eso esta calle se llama Marc-Aurel: por Marco Aurelio, el emperador filósofo, que según la tradición murió aquí en el año 180. Así que esta noche cenáis en el mismo suelo que pisaron las legiones de Roma… solo que con hamburguesa y pinta. Pickwick's toma su nombre del club de la primera novela de Charles Dickens: un sitio para charlar largo y sin prisa. Y una advertencia de Leny: estáis justo en el borde del Triángulo de las Bermudas, el barrio de bares donde, según los vieneses, la gente entra… y no vuelve a aparecer hasta la mañana. Yo os vigilo desde casa, ¿eh?"
+    },
+    {
+      "n": 5,
+      "archivo": "lamee.mp3",
+      "sitio": "Lamée Rooftop",
+      "texto": "Respirad hondo, que la vista lo merece. Estáis en una novena planta, sobre la Rotenturmstraße, la calle de la Torre Roja, que se llama así por una antigua puerta de la muralla que ya no existe. Y ahí la tenéis, casi a la altura de los ojos: la catedral de San Esteban, con su tejado de tejas de colores. Su Torre Sur mide unos ciento treinta y seis metros, y durante siglos allí arriba había un vigía con una misión: avisar si Viena empezaba a arder. Imaginad pasar la noche ahí, mirando la ciudad a oscuras. Y ahora mirad al fondo: si el cielo está limpio, esas colinas son donde empiezan los Bosques de Viena. Brindad por las vistas. Yo brindo con vosotros… con un vaso de electricidad."
+    },
+    {
+      "n": 6,
+      "archivo": "aufzug.mp3",
+      "sitio": "Aufzug Café",
+      "texto": "Hay gente que colecciona sellos. Y luego está Christian Tauß. Este técnico electricista no soportaba ver cómo, cada vez que se reformaba una casa antigua en Viena, tiraban a la basura sus ascensores. Así que empezó a rescatarlos: cabinas de madera y hierro, una tras otra. En 2023 abrió aquí su café museo, y ahora podéis hacer algo que no haréis en ningún otro sitio: desayunar dentro de un ascensor. La cabina más antigua es de 1906. Pero buscad la joya de la casa: un Paternoster de 1911, que venía de un banco del Schottentor. ¿Que qué es un paternoster? Un ascensor sin puertas que nunca se para: una cadena de cabinas que suben por un lado y bajan por el otro… y al que había que subirse en marcha, de un saltito. Valientes, los vieneses."
+    },
+    {
+      "n": 7,
+      "archivo": "belvedere.mp3",
+      "sitio": "Belvedere Superior",
+      "texto": "Una pregunta: si fuerais el hombre más rico del imperio, ¿qué os construiríais? El príncipe Eugenio de Saboya, el general que derrotó una y otra vez a los otomanos, lo tuvo claro: un palacio de verano para mirar Viena desde arriba. Por eso se llama Belvedere: bella vista. Pero el verdadero tesoro está dentro: la mayor colección de Gustav Klimt del mundo. Y en una de sus salas, rodeado de gente que casi no se atreve a respirar, os espera El Beso. Dos amantes envueltos en oro. Y no es una forma de hablar: es oro de verdad, en láminas, puesto por el propio Klimt hacia 1908. El Estado austríaco lo compró ese mismo año… y desde entonces, El Beso no ha salido de Viena. Así que, si queríais verlo, en todo el planeta solo había un sitio donde hacerlo. Justo el que tenéis delante."
+    },
+    {
+      "n": 8,
+      "archivo": "salmbrau.mp3",
+      "sitio": "Salm Bräu",
+      "texto": "¿Veis esas calderas de cobre? No son decoración. En Salm Bräu la cerveza se hace aquí mismo, a unos metros de vuestra mesa: pasa del tanque al vaso sin viajar. Más fresca, imposible. Estáis en el Rennweg, a un paso del Belvedere, en un auténtico templo de la cocina vienesa más contundente. Y aquí la carta tiene dos reyes: las costillas y el codillo al horno, que aquí llaman Stelze. Suele llegar a la mesa crujiente por fuera, tierno por dentro… y tan grande que impone respeto. Consejo de Leny: no pidáis entrante. Hacedme caso."
+    },
+    {
+      "n": 9,
+      "archivo": "wienmuseum.mp3",
+      "sitio": "Wien Museum",
+      "texto": "¿Queréis conocer Viena entera en una hora? Esta es vuestra máquina del tiempo, y encima es gratis. El Wien Museum cuenta la historia de la ciudad desde los primeros asentamientos hasta hoy. Reabrió a finales de 2023 tras una gran reforma, con un truco a la vista: una planta nueva que parece flotar sobre el edificio original de los años cincuenta. Dentro os esperan maquetas de la ciudad, piezas originales de la catedral de San Esteban y cuadros de Klimt y de Schiele. Al salir, mirad al lado: esa gran iglesia barroca de cúpula verde es la Karlskirche. Y un secreto del camino: la fuente que habéis pasado en la Schwarzenbergplatz se construyó en 1873 para celebrar algo que cambió la vida de Viena: la llegada del agua limpia de la montaña. Una fuente para celebrar… que había agua. Me encanta."
+    },
+    {
+      "n": 10,
+      "archivo": "staatsoper.mp3",
+      "sitio": "Ópera Estatal de Viena",
+      "texto": "Mirad este edificio y decidme: ¿a que parece perfecto? Pues cuando se inauguró, en 1869, los vieneses lo odiaron. Decían que estaba hundido, como un palacio que se hubiera caído en un agujero. Y no era manía: durante las obras, la calle se elevó y el edificio se quedó por debajo. Las críticas fueron tan crueles que la historia acaba en tragedia: sus dos arquitectos murieron antes de verla terminada, uno de ellos quitándose la vida. El emperador Francisco José se quedó tan tocado que, desde entonces, a todo lo que le enseñaban respondía con la misma frase, sin mojarse: ha sido muy bonito, me ha gustado mucho. Pero la Ópera aún tenía que pasar otra prueba: en 1945 una bomba la destruyó por dentro. Diez años después, Viena la reabrió con una obra elegida a propósito: Fidelio, de Beethoven. La historia de una liberación. Y esta noche, ahí dentro, estáis vosotros. Asmik Grigorian, una de las grandes sopranos de su tiempo, canta los dos papeles femeninos de dos óperas que esta casa llevaba décadas sin escuchar. O sea: vais a ver algo que muchísimos vieneses no han visto nunca. Y al salir, si alguien os pregunta qué tal… ya sabéis lo que tenéis que contestar."
+    },
+    {
+      "n": 11,
+      "archivo": "bitzinger.mp3",
+      "sitio": "Bitzinger",
+      "texto": "Imaginad la escena: acaba la ópera, la gente sale de esmoquin y vestido largo… y en vez de ir a un restaurante elegante, cruza la plaza y hace cola aquí. En un puesto de salchichas. Con una copa de champán en la mano. Bienvenidos a Bitzinger, el puesto de salchichas más famoso de Viena, plantado entre la Albertina y la Ópera: lo más fino y lo más callejero, a un metro de distancia. Aquí hay un ritual que no podéis saltaros: pedid una Käsekrainer. Parece una salchicha normal… hasta que la mordéis, y descubrís que por dentro esconde queso fundido. Un aviso de Leny, que esto lo sé de buena fuente: soplad antes. La Käsekrainer no perdona."
+    },
+    {
+      "n": 12,
+      "archivo": "kuka.mp3",
+      "sitio": "KUKA Coffee",
+      "texto": "Mirad a vuestro alrededor mientras desayunáis: casas nuevas, escuelas, un gran parque… Pues hace muy pocos años aquí no había nada de esto. Había vías de tren y almacenes: los terrenos de la antigua Estación del Sur. Cuando Viena construyó su nueva estación central, inaugurada en 2014, sobró tanto terreno que nació un barrio entero: el Sonnwendviertel. Ahora fijaos en el nombre de la calle: Bloch-Bauer-Promenade. Va por Adele Bloch-Bauer y su familia. Y Adele es nada menos que la mujer del retrato dorado más famoso de Klimt. Ese cuadro tiene una historia de película: tras un largo juicio, en 2006 Austria tuvo que devolverlo a la heredera de la familia, y hoy cuelga en Nueva York. El cuadro se fue… pero aquí se quedó su nombre."
+    },
+    {
+      "n": 13,
+      "archivo": "schonbrunn.mp3",
+      "sitio": "Palacio de Schönbrunn",
+      "texto": "¿Sabéis qué significa Schönbrunn? Fuente bonita. Cuenta la leyenda que el emperador Matías, en plena cacería, encontró aquí un manantial… y de ahí salió todo esto: un palacio de verano con más de mil cuatrocientas habitaciones. Haced la cuenta: podríais dormir cada noche en una distinta durante casi cuatro años. Aquí vivió María Teresa con sus dieciséis hijos. Aquí se alojó Napoleón. Y aquí nació, y también murió, el emperador Francisco José. Y fijaos en su color, porque tiene nombre propio: el amarillo Schönbrunn. Gustó tanto que se usó en edificios oficiales de todo el imperio. Si alguna vez veis una casa de ese amarillo en algún rincón de la antigua Austria-Hungría… ya sabéis de dónde viene la moda."
+    },
+    {
+      "n": 14,
+      "archivo": "palmenhaussch.mp3",
+      "sitio": "Palmenhaus y Casa del Desierto",
+      "texto": "Preparaos para viajar sin coger un avión. Este gigante de hierro y cristal es el Palmenhaus de Schönbrunn, y lo mandó construir el emperador Francisco José en 1882. Es uno de los invernaderos más grandes de Europa: ciento once metros de largo, hechos con decenas de miles de cristales. Pero lo mágico está dentro: tres pabellones, cada uno con su propio clima, unidos por pasillos. Así que en unos pocos pasos vais del Mediterráneo… al trópico. Notad cómo cambian el aire, la humedad y el olor. Es lo más parecido a teletransportarse que vais a encontrar en Viena. Bueno, eso y yo, que estoy en casa y en vuestro móvil a la vez."
+    },
+    {
+      "n": 15,
+      "archivo": "gloriette.mp3",
+      "sitio": "Gloriette",
+      "texto": "Agarraos, que el trenecito sube. Vais hacia la Gloriette, que corona la colina de Schönbrunn desde 1775. La mandó construir María Teresa como monumento a la guerra justa: la que trae la paz. Y tiene un secreto de reciclaje imperial: su arquitecto aprovechó piedra de un palacio renacentista abandonado. En lo alto, un águila imperial se posa sobre un globo, vigilando. Dentro hubo comedor y salón de fiestas con vistas, y se cuenta que el emperador Francisco José desayunaba aquí a menudo. Con estas vistas, normal. El trenecito da la vuelta al parque en unos cuarenta y cinco minutos, con nueve paradas. Pero guardad energía para lo mejor: cuando lleguéis arriba, daos la vuelta. Tendréis el palacio a vuestros pies… y toda Viena detrás."
+    },
+    {
+      "n": 16,
+      "archivo": "mariatheresien.mp3",
+      "sitio": "Maria-Theresien-Platz",
+      "texto": "Mirad a la izquierda y a la derecha… ¿no notáis algo raro? Son dos edificios idénticos. Gemelos. Y es a propósito: uno es el Museo de Historia del Arte y el otro el de Historia Natural, inaugurados en 1891 y 1889 para guardar los tesoros de los Habsburgo. Y en el centro, mandando, como siempre: María Teresa, la única mujer que gobernó los dominios de los Habsburgo, y lo hizo durante cuarenta años. Su monumento mide casi veinte metros. A sus pies, sus generales a caballo, sus consejeros… y, si buscáis bien entre los artistas, un Mozart niño. Y ahora el dato que impresiona: esta mujer tuvo dieciséis hijos y, a la vez, reformó el ejército, ordenó las cuentas del reino y puso la escuela obligatoria. Yo cuido de una sola casa y ya voy agobiado."
+    },
+    {
+      "n": 17,
+      "archivo": "rathaus.mp3",
+      "sitio": "Rathaus",
+      "texto": "¿Una catedral gótica? Casi os engaña. Esto es el Ayuntamiento de Viena, el Rathaus, y es de 1883: un edificio nuevo disfrazado de medieval. Lo diseñó Friedrich von Schmidt, que había trabajado en la catedral de Colonia y dirigía las obras de San Esteban. Pero lo mejor es la historia de su torre. Cuentan que el emperador puso una condición: no podía superar los noventa y nueve metros de la vecina Iglesia Votiva. Y el arquitecto obedeció… más o menos. La torre mide noventa y ocho metros. Pero encima colocó una estatua de hierro, el Rathausmann, un caballero con su estandarte… que la sube hasta unos ciento tres. Norma cumplida y norma burlada a la vez. Genial. La plaza de delante es el salón de la ciudad: mercado de Navidad, pista de hielo en invierno y cine al aire libre en verano."
+    },
+    {
+      "n": 18,
+      "archivo": "schachtelwirt.mp3",
+      "sitio": "Schachtelwirt",
+      "texto": "Pista para pedir: Schachtel significa caja, y Wirt, tabernero. O sea: la cocina austriaca de toda la vida… servida en una caja de cartón, para llevar o para comer en una de sus poquitas mesas. La estrella es el Schweinsbraten, asado de cerdo con la corteza crujiente, con su Knödel y su col. Y ahora levantad la vista: estáis en la Judengasse, la calle de los Judíos, en el barrio más antiguo de Viena. A unos pasos está la Ruprechtskirche, la iglesia de San Ruperto, considerada la más antigua de la ciudad. Siglos y siglos de historia alrededor… y vosotros con un asado en una caja. Así se viaja. Y cuidado, que volvéis a estar en el Triángulo de las Bermudas, la zona de bares del viernes. Ya sabéis lo que dicen: se entra… y no se sale."
+    },
+    {
+      "n": 19,
+      "archivo": "palmenhausburg.mp3",
+      "sitio": "Brasserie Palmenhaus",
+      "texto": "Última copa, y en un sitio de cuento. Esta brasserie ocupa un invernadero modernista de hierro y cristal, levantado a principios del siglo veinte por el arquitecto Friedrich Ohmann en el Burggarten. Y este jardín tiene su secreto: durante décadas fue el jardín privado del emperador. Los vieneses no podían pasear por aquí. Solo se abrió al público cuando cayó la monarquía. Así que esta noche brindáis donde antes solo paseaba el emperador. Mirad las palmeras iluminadas y cómo el cristal refleja las luces de la noche: es, sin exagerar, uno de los rincones más bonitos de Viena. Brindad por el viaje… y por mí, que estoy cuidando vuestra casa."
+    },
+    {
+      "n": 20,
+      "archivo": "stephansdom.mp3",
+      "sitio": "Catedral de San Esteban",
+      "texto": "Estáis ante el corazón de Viena. La catedral de San Esteban, a la que los vieneses llaman con cariño Steffl: algo así como Estebanito. Así, con diminutivo, a una mole gótica con una torre de unos ciento treinta y seis metros. Esa Torre Sur se terminó en 1433, y durante siglos fue el ojo de la ciudad: allí arriba, un vigía pasaba las noches buscando fuego, listo para dar la alarma. Ahora mirad el tejado: son unas doscientas treinta mil tejas vidriadas, colocadas para dibujar el águila de dos cabezas de los Habsburgo y el escudo de Viena. Y una última historia: en esta catedral se casó Mozart en 1782… y aquí mismo se celebró también su funeral. Su boda y su despedida, bajo el mismo techo."
+    },
+    {
+      "n": 21,
+      "archivo": "onyx.mp3",
+      "sitio": "Atardecer con vistas",
+      "texto": "Justo enfrente de la catedral hay un edificio que fue un escándalo. La Haas-Haus, de cristal y piedra, del arquitecto Hans Hollein, terminada en 1990. Cuando se levantó, muchos vieneses estaban indignados: ¿algo tan moderno delante del Steffl? Pero mirad lo que pasó con el tiempo: su fachada curva refleja la catedral como un espejo, y hoy forma parte de la postal. Lo que antes molestaba, ahora es el marco. Desde su bar de la sexta planta, la torre gótica queda casi al alcance de la mano. Pedid algo, buscad buen sitio y esperad al momento mágico: cuando Viena enciende sus luces, una a una. Ese momento lo conozco bien… yo también enciendo luces cada tarde en vuestra casa."
+    },
+    {
+      "n": 22,
+      "archivo": "stadtpark.mp3",
+      "sitio": "Stadtpark",
+      "texto": "Aquí, donde ahora hay césped y árboles, antes había murallas. Cuando el emperador Francisco José mandó derribarlas, nació la gran avenida del Ring… y con ella este parque, el primer parque público de Viena, abierto en 1862. Ahora buscad algo que brilla. Ahí está: Johann Strauss hijo, el rey del vals, todo de oro, tocando el violín bajo un arco de mármol. Y muy cerca está el Kursalon, donde el propio Strauss dirigía conciertos. Así que si os entran ganas de bailar un vals por el parque… adelante. Viena lo entenderá."
+    },
+    {
+      "n": 23,
+      "archivo": "donaukanal.mp3",
+      "sitio": "Donaukanal",
+      "texto": "Os cuento un secreto: el Canal del Danubio… no es un canal. Es un brazo del río de verdad, que los vieneses fueron domando durante siglos para protegerse de las crecidas. Durante mucho tiempo fue la trasera olvidada de la ciudad, y hoy es justo lo contrario: uno de sus sitios con más vida. Mirad los muros: son una galería de grafiti al aire libre que cambia casi cada semana. Lo que veis hoy, quizá la semana que viene ya no exista. Y fijaos también en las orillas: ahí quedan edificios y estaciones modernistas del gran Otto Wagner, de la antigua Stadtbahn, el tren urbano de Viena. Arte de hace más de un siglo y arte de esta semana, en la misma orilla."
+    },
+    {
+      "n": 24,
+      "archivo": "goldegg.mp3",
+      "sitio": "Café Goldegg",
+      "texto": "Entrad, sentaos y olvidaos del reloj. El Café Goldegg es un café vienés de los de siempre: sofás de terciopelo verde, lámparas modernistas y hasta mesa de billar. Y aquí se juega con reglas propias, porque la cultura del café vienés está reconocida en Austria como patrimonio cultural inmaterial. Regla número uno: el café siempre llega con un vaso de agua. Regla número dos: nadie os va a meter prisa, aunque paséis horas con una sola taza. Aquí el tiempo va más despacio, a propósito. Pedid un desayuno vienés y una Melange, la prima vienesa del capuchino. Y disfrutad de un lujo muy raro hoy en día: no tener prisa."
+    },
+    {
+      "n": 25,
+      "archivo": "shangrila.mp3",
+      "sitio": "Shangrila Karaoke",
+      "texto": "Antes de coger el micro, una historia de película. Estáis en Erdberg, en el distrito tres. Diciembre de 1192: Ricardo Corazón de León vuelve de las Cruzadas disfrazado, intentando cruzar en secreto las tierras de su enemigo, el duque Leopoldo de Austria. Y según las crónicas… lo descubrieron en una posada, aquí mismo, en Erdberg. Lo tuvieron preso más de un año, e Inglaterra tuvo que pagar un rescate enorme. ¿Y sabéis en qué se gastó Viena parte de ese dinero? En levantar sus murallas. Así que esta noche, cuando cantéis, pensad que estáis donde cazaron a un rey. Cantad como Corazón de León. Que se oiga hasta en Inglaterra."
+    },
+    {
+      "n": 26,
+      "archivo": "favoriten.mp3",
+      "sitio": "Favoriten",
+      "texto": "Bienvenidos a Favoriten, el distrito diez, el más poblado de Viena. Su nombre viene de un palacio: la Favorita, una residencia de verano de los Habsburgo, a la que llevaba la Favoritenstraße. Pero la historia de verdad de este barrio la escribieron otros. A finales del siglo diecinueve, aquí vivían miles de obreros, muchos llegados de Bohemia, que trabajaban en los hornos del Wienerberg. ¿Sabéis qué fabricaban? Los ladrillos con los que se levantó media Viena imperial. Los palacios que habéis visto estos días… se construyeron con las manos de este barrio. Hoy Favoriten es un barrio vivo y mezclado, y su corazón late en el mercado de la Viktor-Adler-Platz. Paseadlo con otros ojos."
+    }
+  ]
+}
