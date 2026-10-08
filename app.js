@@ -621,7 +621,7 @@ function gamesSection(k) {
 /* Arena */
 let A = null; // estado del juego abierto
 let L = null; // partida en dos móviles: { sid, role: "host" | "guest", st: {...} }
-const LIVE = { buzz: 1, guess: 1, hunt: 1, zoom: 1, order: 1 };
+const LIVE = { buzz: 1, guess: 1, hunt: 1, zoom: 1, order: 1, mission: 1, sing: 1 };
 const LOCAL = { buzz: gBuzz, guess: gGuess, hunt: gHunt, mission: gMission, order: gOrder, sing: gSing, zoom: gZoom };
 const pts2 = w => ({ k: w === "k" ? 2 : w === "t" ? 1 : 0, p: w === "p" ? 2 : w === "t" ? 1 : 0 });
 
@@ -713,6 +713,7 @@ function liveExtra(x) {
   if (g.type === "hunt") return xTime(x.w, x.s);
   if (g.type === "zoom") return xTime(x.w, x.s) + xZoom(A.k);
   if (g.type === "order") return xOrder(g, x.ord, x.w);
+  if (g.type === "sing" && x.sp) return `<p class="r-sol">${nm("k")} ${num(x.sp.k)} de 3 · ${nm("p")} ${num(x.sp.p)} de 3</p>`;
   return "";
 }
 
@@ -723,7 +724,7 @@ function netSend(t, d) { if (L) NET.send({ g: 1, sid: L.sid, f: me, dev: DEV, t,
 function later(fn, ms) { const id = setTimeout(fn, ms); if (L) L.ts.push(id); return id; }
 function every(fn, ms) { const id = setInterval(fn, ms); if (L) L.is.push(id); return id; }
 function stopLive() { if (!L) return; L.ts.forEach(clearTimeout); L.is.forEach(clearInterval); L = null; }
-function newLive(sid, role) { L = { sid, role, st: { ans: {}, bets: {}, ord: {} }, ts: [], is: [], started: false, done: false, born: Date.now(), lost: 0 }; }
+function newLive(sid, role) { L = { sid, role, st: { ans: {}, bets: {}, ord: {}, votes: {} }, rd: {}, ts: [], is: [], started: false, done: false, born: Date.now(), lost: 0 }; }
 const num = v => +v || 0;
 const okW = w => (w === "k" || w === "p" || w === "t") ? w : "n";
 function waitBox(title, text, btn = "") {
@@ -782,7 +783,7 @@ function liveGuest(sid) {
   let n = 0;
   every(() => {
     if (!L || L.done) return;
-    if (!L.started) { if (++n > 4) return liveFail("No llega respuesta del otro móvil."); netSend("join"); return; }
+    if (!L.got) { if (++n > 4) return liveFail("No llega respuesta del otro móvil."); netSend("join"); return; }
     if (L.pending) netSend(L.pending.t, L.pending.d);
     netSend("q");
   }, 2500);
@@ -814,19 +815,25 @@ function onLiveMsg(m) {
   if (!L || m.sid !== L.sid) { if (m.t === "bye") hideInvite(m.sid); return; }
   if (L.role === "host") {
     if (m.t === "join") {
-      if (!L.joined) { L.joined = true; L.go = liveParams(); lobbyMsg(`${players[peer()]} se ha unido.`); $("#arena").onclick = null; }
-      netSend("go", { P: L.go });
+      if (!L.joined) { L.joined = true; L.go = liveParams(); $("#arena").onclick = null; readyScreen(); }
+      netSend("go", { P: L.go }); sendReady();
     } else if (m.t === "no") { L.declined = true; lobbyMsg(`${players[peer()]} ahora no puede. Podéis jugar en este móvil.`); }
     else if (m.t === "res") guestRes(m);
     else if (m.t === "busy") lobbyMsg(`${players[peer()]} está en mitad de otro juego.`);
-    else if (m.t === "rdy") { if (!L.started) liveStart(L.go); }
-    else if (m.t === "q") { if (L.done && L.res) netSend("res", L.res); else if (L.phase) netSend("st", { ph: L.phase }); }
+    else if (m.t === "rdy") { if (!L.started) sendReady(); }
+    else if (m.t === "q") {
+      if (L.done && L.res) netSend("res", L.res);
+      else if (!L.started) sendReady();
+      else { netSend("cd"); if (L.phaseMsg) netSend("st", L.phaseMsg); else if (L.phase) netSend("st", { ph: L.phase }); }
+    }
+    else if (m.t === "ready") { netSend("ack", { a: "ready" }); hostReady(m.f); }
     else if (m.t === "bye") liveFail(`${players[peer()]} ha cerrado el juego.`);
     else { netSend("ack", { a: m.t }); if (L.started && !L.done) hostOn(m.f, m.t, m); }
   } else {
-    if (m.t === "go") { L.go = m.P || {}; netSend("rdy"); if (!L.started) liveStart(L.go); }
+    if (m.t === "go") { if (!L.got) { L.got = true; L.go = m.P || {}; readyScreen(); } netSend("rdy"); }
+    else if (m.t === "cd") { if (!L.started && L.got) liveStart(L.go); }
     else if (m.t === "ack") { if (L.pending && L.pending.t === m.a) L.pending = null; }
-    else if (m.t === "st") guestPhase(m.ph);
+    else if (m.t === "st") { if (m.ph === "ready") { L.rd = m.r || {}; paintReady(); } else guestPhase(m); }
     else if (m.t === "res") guestRes(m);
     else if (m.t === "bye") liveFail(`${players[peer()]} ha cerrado el juego.`);
   }
@@ -853,20 +860,76 @@ function liveFinish(pts, w, x, meta) {
 }
 function liveParams() {
   const g = A.g;
+  if (g.type === "sing") return { words: shuffle(g.words).slice(0, 6) };
   if (g.type === "buzz") return { ord: shuffle(g.opts.map((o, i) => i)) };
   if (g.type === "hunt") return { target: g.targets ? g.targets[Math.floor(Math.random() * g.targets.length)] : "" };
   return {};
 }
+/* Los dos tienen que decir que están listos; entonces cuenta atrás de 5 en los dos móviles */
+const RULES = {
+  buzz: "La pregunta sale a la vez en los dos móviles. Quien acierte antes se lleva 2 puntos. Si fallas, quedas bloqueado.",
+  guess: "Cada uno escribe su número en su móvil, sin que el otro lo vea. Al final se destapan los dos.",
+  hunt: "El mismo objetivo en los dos móviles. Quien lo encuentre primero, que pulse.",
+  zoom: "La misma foto recortada en los dos móviles. Quien encuentre ese punto primero, que pulse.",
+  order: "Ordenáis a la vez, cada uno en su móvil. Gana quien más acierte; si empatáis, el más rápido.",
+  mission: "Haced el reto y luego votad cada uno en su móvil quién ha ganado. Si coincidís, puntúa.",
+  sing: "Seis rondas por turnos. A quien le toca ve la palabra y canta; el otro hace de juez en su móvil."
+};
+let actx = null;
+function beep(f, d) {
+  try {
+    actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+    if (actx.state === "suspended") actx.resume();
+    if (!f) return;
+    const o = actx.createOscillator(), g = actx.createGain(), t = actx.currentTime;
+    o.frequency.value = f; g.gain.setValueAtTime(.2, t); g.gain.exponentialRampToValueAtTime(.001, t + (d || .15));
+    o.connect(g); g.connect(actx.destination); o.start(t); o.stop(t + (d || .15));
+  } catch (e) {}
+}
+function readyScreen() {
+  if (!L || L.readyShown) return;
+  L.readyShown = true;
+  arenaFrame(`<p class="arena-title">${esc(A.g.title)}</p>
+    <div class="pass"><p class="pass-who">Cada uno en su móvil</p><p class="pass-help">${RULES[A.g.type] || ""}</p></div>
+    <div class="ready-row" id="ready-row"></div>
+    <button class="found-btn wide f-${me}" data-ready>¡Estoy listo!</button>
+    <p class="arena-help center">Cuando estéis listos los dos, empieza la cuenta atrás.</p>`);
+  paintReady();
+  $("#arena").onclick = e => {
+    const b = e.target.closest("[data-ready]"); if (!b || !L || L.started || L.rd[me]) return;
+    beep(0); if (navigator.vibrate) try { navigator.vibrate(30); } catch (x) {}
+    L.rd[me] = 1; paintReady();
+    if (L.role === "host") hostReady(me); else play("ready");
+  };
+}
+function paintReady() {
+  const row = $("#ready-row"); if (!row || !L) return;
+  row.innerHTML = ["k", "p"].map(pl => `<span class="rd ${L.rd[pl] ? "on" : ""}"><b>${nm(pl)}</b><em>${L.rd[pl] ? "Listo" : pl === me ? "Pulsa abajo" : "Esperando…"}</em></span>`).join("");
+  const b = $("#arena [data-ready]");
+  if (b && L.rd[me]) { b.disabled = true; b.textContent = L.rd[peer()] ? "¡Vamos!" : `Esperando a ${players[peer()]}…`; }
+}
+function sendReady() { if (L && L.role === "host" && !L.started) netSend("st", { ph: "ready", r: L.rd }); }
+function hostReady(pl) {
+  if (!L || L.started) return;
+  L.rd[pl] = 1; paintReady(); sendReady();
+  if (L.rd.k && L.rd.p) { netSend("cd"); liveStart(L.go); }
+}
 function liveStart(P) {
-  L.started = true; $("#arena").onclick = null;
-  const run = { buzz: lvBuzz, guess: lvGuess, hunt: lvFind, zoom: lvFind, order: lvOrder }[A.g.type];
-  if (A.g.type === "guess" || A.g.type === "order") return run(P);
-  let n = 3;
+  if (!L || L.started) return;
+  L.started = true; L.rd = { k: 1, p: 1 }; $("#arena").onclick = null;
+  const run = { buzz: lvBuzz, guess: lvGuess, hunt: lvFind, zoom: lvFind, order: lvOrder, mission: lvMission, sing: lvSing }[A.g.type];
+  let n = 5;
   const tick = () => {
     if (!L) return;
-    if (n === 0) return run(P);
-    arenaFrame(`<p class="arena-title">${esc(A.g.title)}</p><p class="count" aria-live="assertive">${n}</p><p class="arena-help center">Preparados los dos…</p>`);
-    n--; later(tick, 700);
+    if (n === 0) {
+      beep(1320, .35); if (navigator.vibrate) try { navigator.vibrate(220); } catch (e) {}
+      L.running = true; run(P);
+      if (L && L.queued) { const q = L.queued; L.queued = null; guestPhase(q); }
+      return;
+    }
+    arenaFrame(`<p class="arena-title">${esc(A.g.title)}</p><p class="count" aria-live="assertive">${n}</p><p class="arena-help center">${n > 2 ? "Preparados los dos…" : "¡Ya casi!"}</p>`);
+    beep(880, .12); if (navigator.vibrate) try { navigator.vibrate(40); } catch (e) {}
+    n--; later(tick, 1000);
   };
   tick();
 }
@@ -878,11 +941,81 @@ function hostOn(from, t, d) {
   else if ((type === "hunt" || type === "zoom") && t === "found") liveFinish(pts2(from), from, { s: num(d.s) }, { s: num(d.s) });
   else if ((type === "hunt" || type === "zoom") && t === "giveup") liveFinish(pts2("n"), "n", {});
   else if (type === "order" && t === "ord") { if (!S.ord[from]) { S.ord[from] = { c: num(d.c), t: num(d.s) }; orderStep(); } }
+  else if (type === "mission" && t === "vote") { if (!S.votes[from] && (num(d.n) === (S.round || 0))) { S.votes[from] = okW(d.w); missionStep(); } }
+  else if (type === "sing" && t === "judge") { const R = S.sing; if (R && num(d.r) === R.round && from !== R.singer) singJudge(!!d.ok); }
 }
-function guestPhase(ph) {
+function guestPhase(m) {
+  const ph = m.ph;
   if (!L || L.done || L.phase === ph) return;
+  if (!L.running) { L.queued = m; return; } // aún en la cuenta atrás: se aplica al terminar
   L.phase = ph;
   if (A.g.type === "guess" && ph === "real") guessRealForm();
+  else if (A.g.type === "mission" && /^dis/.test(ph)) { L.st.round = num(m.n); missionView(m.v); }
+  else if (A.g.type === "sing" && /^s\d/.test(ph)) singView(m);
+}
+/* Reto: los dos votan en su móvil quién ha ganado; si coinciden, puntúa */
+function lvMission() { L.st.round = 0; missionView(null); }
+function missionView(dis) {
+  const g = A.g, n = L.st.round || 0, lab = w => w === "t" ? "empate" : w === "n" ? "que nadie" : "que gana " + players[w];
+  arenaFrame(`<p class="arena-title">${esc(g.title)}</p><p class="arena-q big">${esc(g.q)}</p>
+    ${dis ? `<div class="pass warn-box"><p class="pass-who">No coincidís</p><p class="pass-help">${esc(players.k)} dice ${esc(lab(dis.k))} y ${esc(players.p)}, ${esc(lab(dis.p))}. Poneos de acuerdo y volved a votar.</p></div>` : ""}
+    <p class="pass-help">Cuando terminéis, vota quién ha ganado. ${nm(peer())} vota en su móvil.</p>
+    <div class="found"><button class="found-btn f-p" data-v="p">Gana ${nm("p")}</button><button class="found-btn f-k" data-v="k">Gana ${nm("k")}</button></div>
+    <div class="row2"><button class="btn" data-v="t">Empate</button><button class="btn ghost" data-v="n">Nadie</button></div>`);
+  $("#arena").onclick = e => {
+    const b = e.target.closest("[data-v]"); if (!b || !L || L.done) return;
+    $("#arena").onclick = null;
+    waitBox("Voto guardado", `Esperando el voto de ${nm(peer())}…`);
+    play("vote", { w: b.dataset.v, n });
+  };
+}
+function missionStep() {
+  const v = L.st.votes; if (!v.k || !v.p) return;
+  if (v.k === v.p) return liveFinish(pts2(v.k), v.k, {});
+  L.st.round = (L.st.round || 0) + 1; L.st.votes = {};
+  L.phaseMsg = { ph: "dis" + L.st.round, n: L.st.round, v: { k: v.k, p: v.p } }; L.phase = L.phaseMsg.ph;
+  netSend("st", L.phaseMsg); missionView(L.phaseMsg.v);
+}
+/* Canta la palabra: seis rondas; canta uno y el otro hace de juez en su móvil */
+function lvSing(P) {
+  if (L.role !== "host") { waitBox("¡A cantar!", "Empieza la primera ronda…"); return; }
+  L.st.sing = { round: 0, pts: { k: 0, p: 0 }, words: (P.words && P.words.length ? P.words : shuffle(A.g.words)).slice(0, 6) };
+  singRound();
+}
+function singRound() {
+  const R = L.st.sing;
+  if (R.round >= 6) { const w = R.pts.k > R.pts.p ? "k" : R.pts.p > R.pts.k ? "p" : "t"; return liveFinish({ ...R.pts }, R.pts.k + R.pts.p === 0 ? "n" : w, { sp: { ...R.pts } }); }
+  R.singer = R.round % 2 === 0 ? "p" : "k";
+  L.phaseMsg = { ph: "s" + R.round, r: R.round, singer: R.singer, word: R.words[R.round % R.words.length], pk: R.pts.k, pp: R.pts.p };
+  L.phase = L.phaseMsg.ph;
+  netSend("st", L.phaseMsg); singView(L.phaseMsg);
+}
+function singJudge(ok) {
+  const R = L.st.sing; if (!R) return;
+  if (ok) R.pts[R.singer]++;
+  R.round++; singRound();
+}
+function singView(m) {
+  const singer = m.singer === "k" ? "k" : "p", mine = singer === me, r = num(m.r);
+  if (A.timer) clearInterval(A.timer);
+  arenaFrame(`<p class="arena-title">Ronda ${r + 1} de 6</p><div class="pass"><p class="pass-who">${mine ? "¡Te toca cantar!" : `Canta ${nm(singer)}`}</p>
+    <p class="pass-help">${mine ? "Tienes 10 segundos para empezar una canción con esta palabra." : "Tú eres el juez: ¿la ha cantado?"}</p></div>
+    <p class="sing-word">${esc(m.word || "")}</p>
+    <div class="ring" id="ring"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" class="ring-bg"/><circle cx="60" cy="60" r="52" class="ring-fg" id="ring-fg"/></svg><span id="ring-n">10</span></div>
+    ${mine ? `<p class="arena-help center">${nm(peer())} decide en su móvil.</p>` : `<div class="found"><button class="found-btn f-ok" data-s="1">¡Lo ha cantado!</button><button class="found-btn f-no" data-s="0">No le ha salido</button></div>`}
+    <p class="pass-help">Marcador: ${nm("k")} ${num(m.pk)} · ${nm("p")} ${num(m.pp)}</p>`);
+  const t0 = Date.now(), fg = $("#ring-fg"), C = 2 * Math.PI * 52; fg.style.strokeDasharray = C;
+  A.timer = setInterval(() => {
+    const left = Math.max(0, 10 - (Date.now() - t0) / 1000), f = $("#ring-fg"), nEl = $("#ring-n"); if (!f) return;
+    f.style.strokeDashoffset = C * (1 - left / 10); nEl.textContent = Math.ceil(left);
+    if (left <= 0) { clearInterval(A.timer); $("#ring").classList.add("out"); beep(330, .3); if (navigator.vibrate) try { navigator.vibrate(200); } catch (e) {} }
+  }, 100);
+  $("#arena").onclick = e => {
+    const b = e.target.closest("[data-s]"); if (!b || !L || L.done) return;
+    $("#arena").onclick = null; clearInterval(A.timer);
+    if (L.role === "host") singJudge(b.dataset.s === "1");
+    else { waitBox("Voto enviado", "Siguiente ronda…"); play("judge", { ok: b.dataset.s === "1" ? 1 : 0, r }); }
+  };
 }
 
 /* Pulsador: cada uno contesta en su móvil y gana quien acierta en menos tiempo */
