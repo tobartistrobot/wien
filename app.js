@@ -1405,6 +1405,7 @@ function renderScore() {
     </div>
     <p class="sb-meta">${played} de ${all} juegos jugados. Toca un nombre para cambiarlo.</p>
     <button class="btn primary recap-btn" id="recap-open"><svg viewBox="0 0 24 24"><path d="M5 4h14v16l-7-4-7 4z"/></svg>Ver el resumen del viaje</button>
+    <a class="btn primary recap-btn" href="pelicula.html"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg>Ver la película del viaje</a>
     ${betsList()}
     <ul class="hist">${Object.keys(PLACES).map(k => {
       const gs = gamesOf(k); if (!gs.length) return "";
@@ -1801,6 +1802,7 @@ function renderRecap() {
     ${mom.length ? `<h5>Mejores momentos</h5><ul class="rc-mom">${mom.map(m => `<li><b>${esc(m[0])}</b><span>${esc(m[1])}</span></li>`).join("")}</ul>` : ""}
     <h5>El álbum: antes, hoy y nosotros</h5>
     ${album ? `<ul class="rc-album">${album}</ul>` : `<p class="rc-empty">Sellad cada sitio y haceos la foto: aquí saldrán los tres tiempos de Viena.</p>`}
+    <a class="btn primary recap-btn" href="pelicula.html" style="margin-top:18px"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg>Ver la película del viaje</a>
     <p class="rc-bye">${over ? "Auf Wiedersehen, Wien. Poned fecha al siguiente." : "Seguid sumando. Esto se cierra el lunes."}</p>
   </div>`;
 }

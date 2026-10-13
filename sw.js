@@ -1,11 +1,12 @@
 /* Wien · Kevin y Pilu. Guarda la app en el móvil para que funcione sin conexión. */
-const VERSION = "wien-d06bf342b2";
+const VERSION = "wien-82541baf8a";
 const ASSETS = [
   "data.js?v=f4ed7fe451",
   "photos.js?v=1a8e333086",
   "photos2.js?v=50073513e3",
-  "app.js?v=373ae2eeec",
+  "app.js?v=5dab53fa5c",
   "vendor/supabase.js?v=59d39487c3",
+  "pelicula.html?v=d944cfb966",
   "manifest.webmanifest?v=50ec9afab6",
   "fonts/jost-latin-400-normal.woff2",
   "fonts/jost-latin-500-normal.woff2",
@@ -45,7 +46,11 @@ self.addEventListener("fetch", e => {
   if (req.method !== "GET" || url.origin !== location.origin) return;
   e.respondWith((async () => {
     const cache = await caches.open(VERSION);
-    if (req.mode === "navigate") return (await cache.match("./")) || fetch(req);
+    if (req.mode === "navigate") {
+      // La película va aparte: primero de la red (por si hay versión nueva) y, sin conexión, la guardada.
+      if (/\/pelicula(\.html)?$/.test(url.pathname)) { try { return await fetch(req); } catch (err) { return (await cache.match("pelicula.html", { ignoreSearch: true })) || Response.error(); } }
+      return (await cache.match("./")) || fetch(req);
+    }
     return (await cache.match(req)) || (await cache.match(req, { ignoreSearch: true })) || fetch(req);
   })());
 });
